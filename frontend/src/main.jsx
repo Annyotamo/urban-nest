@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import App from './App.jsx'
-import Login from './components/login-register/Login.jsx'
-import Register from './components/login-register/Register.jsx'
+import UserLogin from './components/login-register/UserLogin.jsx'
+import UserRegister from './components/login-register/UserRegister.jsx'
 
 const router = createBrowserRouter([
     {
@@ -13,18 +13,19 @@ const router = createBrowserRouter([
     },
     {
         path: "/user-login",
-        element: <Login />
+        element: <UserLogin />
     },
     {
         path: "/user-register",
-        element: <Register />
+        element: <UserRegister />
     }
 ])
 
 createRoot(document.getElementById('root')).render(
-    <RouterProvider router={router}>
-        <StrictMode>
+    <StrictMode>
+        <RouterProvider router={router}>
             <App />
-        </StrictMode>
-    </RouterProvider>
+        </RouterProvider>
+    </StrictMode>
+
 )
