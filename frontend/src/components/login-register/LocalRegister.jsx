@@ -36,7 +36,7 @@ const LocalRegister = () => {
         onSubmit: async (values) => {
             try {
                 await mutateAsync(values);
-                toast("Registration successful!")
+                toast.success("Registration successful!")
             } catch (error) {
                 console.log(error)
             }

@@ -51,7 +51,7 @@ server.get("/", (req, res) => {
 });
 server.get("/api/test/protected", (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthenticated" });
-    res.sendStatus(200);
+    res.status(200).json({ message: "Welcome! You are accessing the protected page" });
 });
 
 server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
