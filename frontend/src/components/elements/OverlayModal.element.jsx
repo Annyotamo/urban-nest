@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const OverlayModal = ({ close, children, heading, subHeading }) => {
+const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, showNext = true, setSlide }) => {
     useEffect(() => {
         // Disable scrolling on the body
         document.body.style.overflow = 'hidden';
@@ -26,12 +26,29 @@ const OverlayModal = ({ close, children, heading, subHeading }) => {
                     </button>
                 </div>
 
-                {/* Content Section */}
-                <div className="p-6 max-h-[80vh] overflow-y-auto">
-                    {/* Subheading */}
+                <div className="p-6 max-h-[70vh] overflow-y-auto">
                     {subHeading && <div className="text-lg mb-4">{subHeading}</div>}
-                    {/* Children */}
                     {children}
+                </div>
+
+                {/* Footer Section with Navigation Buttons */}
+                <div className="flex justify-between items-center border-t p-4">
+                    {showPrev && (
+                        <button
+                            className="bg-[#d4a373] text-[#fefae0] py-2 px-4 rounded-lg shadow-md hover:bg-[#b08968] transition-transform transform hover:scale-105"
+                            onClick={() => setSlide(prev => --prev)}
+                        >
+                            Previous
+                        </button>
+                    )}
+                    {showNext && (
+                        <button
+                            className="bg-[#d4a373] text-[#fefae0] py-2 px-4 rounded-lg shadow-md hover:bg-[#b08968] transition-transform transform hover:scale-105 ml-auto"
+                            onClick={() => setSlide(prev => ++prev)}
+                        >
+                            Next
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
