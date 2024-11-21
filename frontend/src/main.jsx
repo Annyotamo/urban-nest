@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import UserLogin from './components/login-register/UserLogin.jsx'
 import UserRegister from './components/login-register/UserRegister.jsx'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Rent from './components/rent/Rent.jsx'
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/user-register",
         element: <UserRegister />
+    },
+    {
+        path: "/rent",
+        element: <Rent />
     }
 ])
 

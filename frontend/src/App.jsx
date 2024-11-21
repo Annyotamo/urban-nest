@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './components/navbar/Navbar'
 const App = () => {
     return (
