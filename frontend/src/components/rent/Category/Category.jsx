@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from "react-redux"
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux"
 import { category } from '../../../redux/slices/give-rent/giveRent.slice';
 
 
@@ -8,6 +8,15 @@ const Category = ({ option }) => {
     const [select, setSelect] = useState(false);
 
     const dispatch = useDispatch()
+    const data = useSelector((state) => state.giveRent)
+
+    useEffect(() => {
+        if (data.category.find((item) => item === option.label)) {
+            setSelect(true);
+        }
+    }, [data.category])
+
+
 
     function clickHandler(value) {
         setSelect(prev => !prev)
