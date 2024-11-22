@@ -7,6 +7,7 @@ import { FaSkiing } from "react-icons/fa"
 import { BsSnow } from "react-icons/bs"
 import Option from '../elements/Option.element'
 import { IoDiamond } from "react-icons/io5"
+import { useSelector } from 'react-redux'
 
 export const options = [
     {
@@ -86,7 +87,10 @@ export const options = [
     }
 ]
 
+
+
 const Categories = () => {
+
     return (
         <Container>
             <div className='pt-4 flex flew-row items-center justify-between overflow-x-auto'>

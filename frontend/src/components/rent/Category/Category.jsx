@@ -1,7 +1,20 @@
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { category } from '../../../redux/slices/give-rent/giveRent.slice';
+
 
 const Category = ({ option }) => {
+
     const [select, setSelect] = useState(false);
+
+    const dispatch = useDispatch()
+
+    function clickHandler(value) {
+        setSelect(prev => !prev)
+        dispatch(category(value))
+    }
+
+
     return (
         <div
             key={option.label}
@@ -10,7 +23,7 @@ const Category = ({ option }) => {
                 backgroundColor: `${!select ? "#d4a373" : "black"}`,
                 color: '#fefae0',
             }}
-            onClick={() => setSelect(prev => !prev)}
+            onClick={() => clickHandler(option.label)}
         >
             <option.icon className="text-3xl mb-2" />
             <h3 className="text-sm font-medium">{option.label}</h3>

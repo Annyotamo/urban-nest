@@ -30,7 +30,7 @@ const LondonMap = ({ latLng }) => {
     const position = latLng;
 
     return (
-        <div style={{ height: "300px", width: "100%" }}>
+        <div style={{ height: "290px", width: "100%" }}>
             <MapContainer
                 center={position}
                 zoom={13}

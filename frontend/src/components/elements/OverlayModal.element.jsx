@@ -1,32 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, showNext = true, setSlide }) => {
+    const [isVisible, setIsVisible] = useState(false);
+
     useEffect(() => {
+        // Show the modal with animation
+        setIsVisible(true);
+
         // Disable scrolling on the body
         document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = "17px";
 
         // Cleanup: Re-enable scrolling when the modal is closed
         return () => {
             document.body.style.overflow = '';
+            document.body.style.paddingRight = "0px";
         };
     }, []);
 
+    const handleClose = () => {
+        setIsVisible(false); // Trigger exit animation
+        setTimeout(() => close(false), 300); // Wait for animation to complete
+    };
+
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg shadow-lg max-w-md w-full relative">
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <div
+                className={`bg-white rounded-lg shadow-lg max-w-md w-full relative transform transition-all duration-300 ${isVisible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-4 scale-95 opacity-0'}`}
+            >
                 {/* Header Section */}
                 <div className="border-b text-[#d4a373] mx-5 text-xl font-semibold rounded-t-lg px-4 py-3 flex justify-between items-center">
                     <h2 className="text-center w-[100%]">{heading}</h2>
                     <button
                         className="text-white hover:bg-red-600 px-2 flex items-center justify-center rounded-full transition-transform transform hover:scale-110"
-                        onClick={() => close(false)}
+                        onClick={handleClose}
                         aria-label="Close Modal"
                     >
                         &times;
                     </button>
                 </div>
 
-                <div className="p-6 max-h-[70vh] overflow-y-auto">
+                <div className="p-6 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-[#d4a373] scrollbar-track-[#f3f3f3]">
                     {subHeading && <div className="text-lg mb-4">{subHeading}</div>}
                     {children}
                 </div>

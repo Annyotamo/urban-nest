@@ -7,6 +7,8 @@ import UserLogin from './components/login-register/UserLogin.jsx'
 import UserRegister from './components/login-register/UserRegister.jsx'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Rent from './components/rent/Rent.jsx'
+import { Provider } from "react-redux";
+import { store } from './redux/store.redux.js'
 
 const router = createBrowserRouter([
     {
@@ -31,11 +33,13 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router}>
-                <App />
-            </RouterProvider>
-        </QueryClientProvider>
+        <Provider store={store}>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router}>
+                    <App />
+                </RouterProvider>
+            </QueryClientProvider>
+        </Provider>
     </StrictMode>
 
 )

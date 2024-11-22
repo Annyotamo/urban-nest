@@ -1,15 +1,18 @@
 import React from 'react';
 import Select from 'react-select';
 import useCountries from './useCountries.hook';
+import { useDispatch, useSelector } from "react-redux"
+import { location } from '../../../redux/slices/give-rent/giveRent.slice';
 
-const SelectCountry = ({ value, setLatLng }) => {
+const SelectCountry = ({ setLatLng }) => {
     const { getAll } = useCountries();
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.giveRent);
 
-    // Handle option change (when user selects a country)
     function handleChange(selected) {
         if (selected) {
-            console.log(selected.latlng);  // Make sure selected has latlng property
-            setLatLng(selected.latlng); // Assuming you want to set latlng here
+            setLatLng(selected.latlng);
+            dispatch(location(selected.label))
         }
     }
 
@@ -18,10 +21,11 @@ const SelectCountry = ({ value, setLatLng }) => {
             placeholder="Anywhere"
             options={getAll()}
             isClearable
-            onChange={handleChange}  // Use onChange here to get the selected option
+            defaultValue={data.location} // work on this
+            onChange={(e) => handleChange(e)}
             formatOptionLabel={(option) => (
                 <div className="flex flex-row items-center gap-3">
-                    <div>🏳️</div> {/* Convert flag code to emoji */}
+                    <div>🏳️</div>
                     <div>
                         {option.label}, <span className="text-neutral-800 ml-1">{option.value}</span>
                     </div>

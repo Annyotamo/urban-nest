@@ -5,7 +5,6 @@ import SelectCountry from "./SelectCountry";
 const LocationSlide = () => {
 
     const [latLng, setLatLng] = useState([51.505, -0.09])
-    console.log(latLng)
 
     return (
         <div>
