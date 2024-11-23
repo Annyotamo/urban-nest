@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import useCountries from './useCountries.hook';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { location } from '../../../redux/slices/give-rent/giveRent.slice';
 
 const SelectCountry = ({ setLatLng }) => {
     const { getAll } = useCountries();
     const dispatch = useDispatch();
     const data = useSelector((state) => state.giveRent);
+    const [selectedCountry, setSelectedCountry] = useState(null);
+
+    useEffect(() => {
+        const allCountries = getAll();
+        const matchedCountry = allCountries.find(
+            (country) => country.label === data.location
+        );
+        setSelectedCountry(matchedCountry || null);
+    }, [data.location, getAll]);
 
     function handleChange(selected) {
         if (selected) {
             setLatLng(selected.latlng);
-            dispatch(location(selected.label))
+            dispatch(location(selected.label));
+        } else {
+            setLatLng(null);
+            dispatch(location(null));
         }
     }
 
@@ -21,7 +33,7 @@ const SelectCountry = ({ setLatLng }) => {
             placeholder="Anywhere"
             options={getAll()}
             isClearable
-            defaultValue={data.location} // work on this
+            value={selectedCountry}
             onChange={(e) => handleChange(e)}
             formatOptionLabel={(option) => (
                 <div className="flex flex-row items-center gap-3">
@@ -48,8 +60,6 @@ const SelectCountry = ({ setLatLng }) => {
                 }),
             }}
             menuPortalTarget={document.body}
-            menuPosition="fixed"
-            menuShouldScrollIntoView={false}
         />
     );
 };
