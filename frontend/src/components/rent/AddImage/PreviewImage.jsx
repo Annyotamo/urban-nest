@@ -1,11 +1,11 @@
 import RemoveButton from "./RemoveImageButton"
-const PreviewImage = ({ image, index, handleRemoveImage, currentIndex }) => {
+const PreviewImage = ({ image, index, imageCount, setUploadedImages }) => {
     return (
         <div
             key={index}
             className="relative flex-none w-1/2 px-2 opacity-0 transition-opacity duration-500 ease-in-out"
             style={{
-                opacity: index >= currentIndex && index < currentIndex + 2 ? 1 : 0,
+                opacity: index >= imageCount && index < imageCount + 2 ? 1 : 0,
             }}
         >
             {/* Image */}
@@ -16,7 +16,7 @@ const PreviewImage = ({ image, index, handleRemoveImage, currentIndex }) => {
             />
 
             {/* Remove Button */}
-            <RemoveButton handleRemoveImage={handleRemoveImage} index={index} />
+            <RemoveButton index={index} setUploadedImages={setUploadedImages} />
         </div>
     )
 }

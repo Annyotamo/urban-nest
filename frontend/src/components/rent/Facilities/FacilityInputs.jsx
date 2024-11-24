@@ -19,8 +19,6 @@ const FacilityInputs = () => {
         const moreFacilitiesArray = data.facilities.more.map((item) =>
             facilitiesOptions.find(option => option.value === item) // Find corresponding option
         );
-        console.log(moreFacilitiesArray)
-
         setFacilityState({
             rooms: data.facilities.rooms,
             baths: data.facilities.baths,

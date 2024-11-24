@@ -88,3 +88,10 @@ export function setDetails(state, action) {
         };
     }
 }
+
+export function setImages(state, action) {
+    return {
+        ...state,
+        images: action.payload,
+    };
+}

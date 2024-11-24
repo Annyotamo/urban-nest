@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setCategory, setFacilities, setLocation, setDetails } from "./giveRent.reducer.js";
+import { setCategory, setFacilities, setLocation, setDetails, setImages } from "./giveRent.reducer.js";
 
 const initialState = {
-    name: "",
     details: {
-        price: 100,
         title: "",
+        price: 100,
         description: "",
     },
-    location: null,
+    location: {
+        country: "",
+        latLng: [51.505, -0.09],
+    },
     category: [],
     facilities: {
         rooms: 1,
@@ -27,8 +29,9 @@ const giveRentSlice = createSlice({
         location: setLocation,
         facilities: setFacilities,
         details: setDetails,
+        images: setImages,
     },
 });
 
-export const { category, location, facilities, details } = giveRentSlice.actions;
+export const { category, location, facilities, details, images } = giveRentSlice.actions;
 export default giveRentSlice.reducer;

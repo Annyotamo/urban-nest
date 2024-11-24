@@ -1,31 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import PreviewImages from './PreviewImages';
 import { onDrop, onDropRejected } from './imageUtilityFunctions';
+import { useDispatch } from "react-redux"
+import { images } from '../../../redux/slices/give-rent/giveRent.slice';
 
 const ImageUploadPanel = () => {
     const [uploadedImages, setUploadedImages] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const dispatch = useDispatch();
 
-    const handleRemoveImage = (indexToRemove) => {
-        setUploadedImages((prevImages) =>
-            prevImages.filter((_, index) => index !== indexToRemove)
-        );
-        toast.success('Image removed successfully!');
-    };
-
-    const handleNext = () => {
-        if (currentIndex < uploadedImages.length - 2) {
-            setCurrentIndex((prevIndex) => prevIndex + 1);
+    useEffect(() => {
+        const serializedFiles = uploadedImages.map(file => ({ name: file.name, size: file.size, type: file.type, preview: file.preview }));
+        dispatch(images(serializedFiles))
+        return () => {
+            dispatch(images(serializedFiles))
         }
-    };
-
-    const handlePrev = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex((prevIndex) => prevIndex - 1);
-        }
-    };
+    }, [uploadedImages]);
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop: (acceptedFiles) => onDrop(acceptedFiles, setUploadedImages),
@@ -56,7 +47,7 @@ const ImageUploadPanel = () => {
             </div>
 
             {/* Images */}
-            <PreviewImages uploadedImages={uploadedImages} handleNext={handleNext} handlePrev={handlePrev} currentIndex={currentIndex} handleRemoveImage={handleRemoveImage} />
+            <PreviewImages uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
         </div>
     );
 };

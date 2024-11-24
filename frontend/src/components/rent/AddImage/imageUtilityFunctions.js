@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-export const onDrop = (acceptedFiles, setUploadedImages) => {
+export const onDrop = async (acceptedFiles, setUploadedImages) => {
     if (acceptedFiles.length > 0) {
         const newImages = acceptedFiles.map((file) =>
             Object.assign(file, {
@@ -8,6 +8,7 @@ export const onDrop = (acceptedFiles, setUploadedImages) => {
             })
         );
         setUploadedImages((prevImages) => [...prevImages, ...newImages]);
+
         toast.success(`${acceptedFiles.length} image(s) uploaded successfully!`);
     }
 };
@@ -18,19 +19,7 @@ export const onDropRejected = (fileRejections) => {
     });
 };
 
-export const handleRemoveImage = (indexToRemove) => {
+export const handleRemoveImage = (indexToRemove, setUploadedImages) => {
     setUploadedImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
     toast.success("Image removed successfully!");
-};
-
-export const handleNext = () => {
-    if (currentIndex < uploadedImages.length - 2) {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-    }
-};
-
-export const handlePrev = () => {
-    if (currentIndex > 0) {
-        setCurrentIndex((prevIndex) => prevIndex - 1);
-    }
 };

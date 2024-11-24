@@ -4,7 +4,7 @@ import useCountries from './useCountries.hook';
 import { useDispatch, useSelector } from "react-redux";
 import { location } from '../../../redux/slices/give-rent/giveRent.slice';
 
-const SelectCountry = ({ setLatLng }) => {
+const SelectCountry = () => {
     const { getAll } = useCountries();
     const dispatch = useDispatch();
     const data = useSelector((state) => state.giveRent);
@@ -13,15 +13,14 @@ const SelectCountry = ({ setLatLng }) => {
     useEffect(() => {
         const allCountries = getAll();
         const matchedCountry = allCountries.find(
-            (country) => country.label === data.location
+            (country) => country.label === data.location.country
         );
         setSelectedCountry(matchedCountry || null);
     }, [data.location, getAll]);
 
     function handleChange(selected) {
         if (selected) {
-            setLatLng(selected.latlng);
-            dispatch(location(selected.label));
+            dispatch(location({ country: selected.label, latLng: selected.latlng }));
         } else {
             setLatLng(null);
             dispatch(location(null));

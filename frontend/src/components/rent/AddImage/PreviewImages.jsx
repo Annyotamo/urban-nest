@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PreviewImage from './PreviewImage'
 import ImageNavigation from './ImageNavigationArrows'
 
-export default function PreviewImages({ uploadedImages, handleNext, handlePrev, currentIndex, handleRemoveImage }) {
+export default function PreviewImages({ uploadedImages, setUploadedImages }) {
+
+    const [imageCount, setImageCount] = useState(0);
+
     return (
         <div className="mt-8">
             {uploadedImages.length === 0 ? (
@@ -16,17 +19,18 @@ export default function PreviewImages({ uploadedImages, handleNext, handlePrev, 
                     <div
                         className="flex transition-transform duration-500 ease-in-out"
                         style={{
-                            transform: `translateX(-${currentIndex * 50}%)`,
+                            transform: `translateX(-${imageCount * 50}%)`,
                         }}
                     >
                         {uploadedImages.map((image, index) => (
-                            <PreviewImage key={index} index={index} image={image} handleRemoveImage={handleRemoveImage} currentIndex={currentIndex} />
+                            <PreviewImage key={index} index={index} image={image} setUploadedImages={setUploadedImages} imageCount={imageCount} />
                         ))}
                     </div>
 
                     {/* Navigation Arrows */}
                     {uploadedImages.length > 2 && (
-                        <ImageNavigation handleNext={handleNext} handlePrev={handlePrev} currentIndex={currentIndex} uploadedImages={uploadedImages} />
+                        <ImageNavigation imageCount={imageCount} uploadedImages={uploadedImages}
+                            setImageCount={setImageCount} />
                     )}
                 </div>
             )}
