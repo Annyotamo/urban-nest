@@ -47,7 +47,7 @@ const RentOptions = ({ toggle }) => {
 
     return (
 
-        <OverlayModal heading="Rent your home" close={toggle} setSlide={setSlide} showNext={slide <= 4} showPrev={slide > 0}>
+        <OverlayModal heading="Rent your home" close={toggle} setSlide={setSlide} showNext={slide <= 4} showPrev={slide > 0} slide={slide}>
             {content}
         </OverlayModal>
     )

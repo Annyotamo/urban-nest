@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Line } from 'rc-progress';
 
-const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, showNext = true, setSlide }) => {
+const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, showNext = true, setSlide, slide }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -29,10 +30,10 @@ const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, s
                 className={`bg-white rounded-lg shadow-lg max-w-md w-full relative transform transition-all duration-300 ${isVisible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-4 scale-95 opacity-0'}`}
             >
                 {/* Header Section */}
-                <div className="border-b text-[#d4a373] mx-5 text-xl font-semibold rounded-t-lg px-4 py-3 flex justify-between items-center">
+                <div className="border-b text-[#d4a373] text-xl font-semibold rounded-t-lg p-4 flex justify-between items-center">
                     <h2 className="text-center w-[100%]">{heading}</h2>
                     <button
-                        className="text-white hover:bg-red-600 px-2 flex items-center justify-center rounded-full transition-transform transform hover:scale-110"
+                        className="text-[#d4a373] text-3xl font-semibold pr-2 flex items-center justify-center rounded-full transition-transform transform hover:scale-110"
                         onClick={handleClose}
                         aria-label="Close Modal"
                     >
@@ -46,7 +47,7 @@ const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, s
                 </div>
 
                 {/* Footer Section with Navigation Buttons */}
-                <div className="flex justify-between items-center border-t p-4">
+                <div className="flex justify-between items-center border-t p-4 ">
                     {showPrev && (
                         <button
                             className="bg-[#d4a373] text-[#fefae0] py-2 px-4 rounded-lg shadow-md hover:bg-[#b08968] transition-transform transform hover:scale-105"
