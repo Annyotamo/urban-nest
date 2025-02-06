@@ -34,7 +34,7 @@ const initialState = {
     },
     location: {
         country: "",
-        latLng: [51.505, -0.09],
+        latLng: [51.505, -0.09], // array of 2 number (longitute and latitute)
     },
     category: [], // Array of strings
     facilities: {
@@ -43,7 +43,7 @@ const initialState = {
         pets: false,
         more: [], // Array of strings,
     },
-    images: [], // Array of objects containing image information,
+    images: [], // Array of cloudinary string
 };
 
 const giveRentSlice = createSlice({

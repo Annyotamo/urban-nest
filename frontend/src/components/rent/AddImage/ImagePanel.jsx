@@ -32,29 +32,26 @@ const ImageUploadPanel = () => {
     });
 
     return (
-        <>
-            <div className="h-full overflow-y-auto p-6">
-                <h2 className="text-xl mb-2">Upload Property Images</h2>
-                <p className="text-md text-gray-500 mb-6">Make your property look more stunning</p>
-
-                {/* Dropzone */}
-                <div
-                    {...getRootProps()}
-                    className="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center cursor-pointer"
-                >
-                    <input {...getInputProps()} />
-                    <p className="text-gray-500">
-                        Drag & drop images here, or <span className="text-blue-500 underline">browse</span>
-                    </p>
-                    <p className="text-sm text-gray-400 mt-2">Accepted file types: JPG, PNG</p>
-                </div>
-
-                {/* Images */}
-                <PreviewImages uploadedImages={previewImages} setUploadedImages={setUploadedImages} />
-            </div>
+        <div className="h-full overflow-y-auto p-6">
             <Toaster position="top-center" />
-        </>
+            <h2 className="text-xl mb-2">Upload Property Images</h2>
+            <p className="text-md text-gray-500 mb-6">Make your property look more stunning</p>
 
+            {/* Dropzone */}
+            <div
+                {...getRootProps()}
+                className="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center cursor-pointer"
+            >
+                <input {...getInputProps()} />
+                <p className="text-gray-500">
+                    Drag & drop images here, or <span className="text-blue-500 underline">browse</span>
+                </p>
+                <p className="text-sm text-gray-400 mt-2">Accepted file types: JPG, PNG</p>
+            </div>
+
+            {/* Images */}
+            <PreviewImages uploadedImages={previewImages} setUploadedImages={setUploadedImages} />
+        </div>
     );
 };
 

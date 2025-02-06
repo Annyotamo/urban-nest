@@ -15,16 +15,39 @@ export async function uploadImages(req, res) {
         return res.status(400).json({ message: "No file uploaded..." });
     }
     const collectionId = req.headers["x-collection-id"];
-    console.log(collectionId);
 
-    req.files.map(async (item) => {
-        const result = await Cloudinary.uploader.upload(`./${item.path}`, {
-            resource_type: "image",
-            folder: "urban-nest",
-        });
-        await Listing.findByIdAndUpdate(collectionId, { $push: { images: result.secure_url } });
-    });
-    res.json({ message: "Images uploaded successfully..." });
+    try {
+        // uploading all images url to cloudinary
+        await Promise.all(
+            req.files.map((item) => {
+                return new Promise((resolve, reject) => {
+                    const uploadStream = Cloudinary.uploader.upload_stream(
+                        { resource_type: "image", folder: "urban-nest" },
+                        async (error, result) => {
+                            if (error) {
+                                reject(error);
+                                return;
+                            }
+                            // updating the database with the image url
+                            try {
+                                const url = result.secure_url;
+                                await Listing.findByIdAndUpdate(collectionId, { $push: { images: url } });
+                                resolve();
+                            } catch (dbError) {
+                                // if there is an error updating the database
+                                reject(dbError);
+                            }
+                        }
+                    );
+                    uploadStream.end(item.buffer);
+                });
+            })
+        );
+
+        res.json({ message: "Images uploaded successfully" });
+    } catch (e) {
+        res.status(500).json({ message: "Image upload to cloudinary failed" });
+    }
 }
 
 export async function uploadData(req, res) {
@@ -34,12 +57,11 @@ export async function uploadData(req, res) {
 
     const newListing = new Listing({
         ...req.body,
-        images: [""],
+        images: [],
     });
 
     try {
         const listingId = await newListing.save();
-        console.log(listingId);
         res.status(201).json({ message: "Data successfully uploaded", id: listingId._id });
     } catch (error) {
         res.status(500).json({ message: "Error creating uploading data", error });

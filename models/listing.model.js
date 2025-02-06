@@ -18,7 +18,7 @@ const listingSchema = new Schema(
             pets: { type: Boolean, default: false },
             more: [{ type: String }],
         },
-        images: [String],
+        images: [],
     },
     { timestamps: true }
 );
