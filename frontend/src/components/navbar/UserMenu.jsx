@@ -28,9 +28,9 @@ const UserMenu = () => {
                 <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
                     <div className='flex flex-col cursor-pointer'>
                         <>
-                            <MenuItem label="Rent your home" />
                             <MenuItem label='login' endpoint="/user-login" styles="border-t" />
                             <MenuItem label='Register' endpoint="/user-register" />
+                            <MenuItem label='logout' endpoint="/user-login" styles="border-t text-red-400" />
                         </>
                     </div>
                 </div>)}

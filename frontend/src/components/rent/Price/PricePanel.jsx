@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 'rc-slider/assets/index.css';
-import Slider from 'rc-slider';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { details } from '../../../redux/slices/give-rent/giveRent.slice';
 
 const PricePanel = () => {
@@ -23,24 +21,30 @@ const PricePanel = () => {
         description: ""
     })
 
+    const handlePriceChange = (e) => {
+        const value = e.target.value;
+        // Ensure the price is a number and within a reasonable range
+        if (!isNaN(value)) {
+            dispatch(details({ type: "price", data: Number(value) }));
+        }
+    }
+
     return (
         <div className="h-full overflow-y-auto px-6">
             <h2 className="text-xl mb-2">Set Price & Property Details</h2>
             <p className='text-md mb-6'>Affordable and luxurious</p>
 
             <div className="space-y-6">
-                {/* Price Slider */}
+                {/* Price Input */}
                 <div>
                     <label className="block mb-2 text-sm font-semibold">Price (in USD)</label>
                     <div className="flex items-center gap-4">
-                        <Slider
-                            min={50}
-                            max={5000}
-                            step={50}
-                            onChange={(value) => dispatch(details({ type: "price", data: value }))}
+                        <input
+                            type="number"
                             value={properyObject.price}
+                            onChange={handlePriceChange}
+                            className="w-[50%] px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
                         />
-                        <span className="text-lg font-semibold">${properyObject.price}</span>
                     </div>
                 </div>
 

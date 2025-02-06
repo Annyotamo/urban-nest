@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Line } from 'rc-progress';
 
 const OverlayModal = ({ close, children, heading, subHeading, showPrev = true, showNext = true, setSlide, slide }) => {
     const [isVisible, setIsVisible] = useState(false);

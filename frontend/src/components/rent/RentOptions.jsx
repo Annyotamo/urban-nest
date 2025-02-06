@@ -10,6 +10,9 @@ import { useSelector } from 'react-redux'
 
 const RentOptions = ({ toggle }) => {
 
+    const listingData = useSelector((state) => state.giveRent);
+    console.log(listingData);
+
     let content = (<div className="h-full overflow-y-auto p-4 pt-0">
         <h2 className="text-md font-semibold mb-4">Select a Category</h2>
         <Categories />
@@ -38,12 +41,9 @@ const RentOptions = ({ toggle }) => {
             content = (<PricePanel />)
             break;
         default:
-            content = (<SubmitPanel />)
+            content = (<SubmitPanel toggle={toggle} />)
             break;
     }
-
-    const data = useSelector((state) => state.giveRent);
-    console.log(data);
 
     return (
 
