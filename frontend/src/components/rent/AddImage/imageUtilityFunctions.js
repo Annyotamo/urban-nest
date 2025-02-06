@@ -8,7 +8,6 @@ export const onDrop = async (acceptedFiles, setUploadedImages) => {
             })
         );
         setUploadedImages((prevImages) => [...prevImages, ...newImages]);
-
         toast.success(`${acceptedFiles.length} image(s) uploaded successfully!`);
     }
 };

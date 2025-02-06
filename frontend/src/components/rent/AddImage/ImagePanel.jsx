@@ -8,12 +8,17 @@ import { images } from '../../../redux/slices/give-rent/giveRent.slice';
 
 const ImageUploadPanel = () => {
     const [uploadedImages, setUploadedImages] = useState([]);
+    const [previewImages, setPreviewImages] = useState([]);
+    const storeListingData = useSelector(state => state.giveRent);
     const dispatch = useDispatch();
-    console.log(uploadedImages)
 
     useEffect(() => {
-        const serializedFiles = uploadedImages.map(file => ({ name: file.name, size: file.size, type: file.type, preview: file.preview }));
-        dispatch(images(serializedFiles))
+        if (uploadedImages.length == 0) {
+            setPreviewImages(storeListingData.images);
+            return;
+        }
+        setPreviewImages(uploadedImages);
+        dispatch(images(uploadedImages))
     }, [uploadedImages]);
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -45,7 +50,7 @@ const ImageUploadPanel = () => {
                 </div>
 
                 {/* Images */}
-                <PreviewImages uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
+                <PreviewImages uploadedImages={previewImages} setUploadedImages={setUploadedImages} />
             </div>
             <Toaster position="top-center" />
         </>

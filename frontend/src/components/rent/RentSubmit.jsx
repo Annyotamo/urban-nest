@@ -3,16 +3,41 @@ import { Link } from 'react-router-dom';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+import { useMutation } from '@tanstack/react-query'
 const RentSubmit = ({ toggle }) => {
+
+    const { mutateAsync } = useMutation({
+        mutationFn: (values) => createListing(values),
+    })
 
     const listingData = useSelector((state) => state.giveRent);
 
-    async function postFunction(listingData) {
-        const res = await axios.post("http://localhost:8080/api/listing/create", listingData);
-        console.log(res.data);
-        toggle(false);
+    async function createListing() {
+        const res = await listingDataUpload();
+        const collectionId = res.data.id;
+        const headers = { "x-collection-id": collectionId };
+        await listingImageUpload(headers);
+        // toggle(false);
         toast.success("Listing successfully created!");
+    }
+
+    // Uploading all listing data
+    async function listingDataUpload() {
+        return await axios.post("http://localhost:8080/api/listing/create/data", listingData);
+    }
+    // Uploading all images
+    async function listingImageUpload(headers) {
+
+        const { images } = listingData;
+
+        // convert images to FormData
+        const formData = new FormData();
+        images.forEach((image) => {
+            formData.append("images", image);
+        });
+
+        await axios.post("http://localhost:8080/api/listing/create/images", formData, { headers });
     }
 
     return (
@@ -37,7 +62,7 @@ const RentSubmit = ({ toggle }) => {
                     </Link>
                     <button
                         className="p-2 text-white text-md w-[60%] font-semibold bg-[#4caf50] rounded-lg shadow-md hover:bg-[#45a049] transition duration-300"
-                        onClick={() => postFunction(listingData)}
+                        onClick={() => mutateAsync(listingData)}
                     >
                         Submit Your Property
                     </button>
