@@ -51,6 +51,8 @@ export async function uploadImages(req, res) {
 }
 
 export async function uploadData(req, res) {
+    if (!req.user) return res.status(401).json({ message: "Unauthorized" });
+
     if (req.body === null) {
         return res.status(400).json({ message: "No data provided..." });
     }

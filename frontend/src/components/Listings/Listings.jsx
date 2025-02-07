@@ -1,15 +1,15 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import LoadingSpinner from "../elements/LoadingSpinner";
 import Listing from "./Listing";
+import ErrorComponent from "../elements/ErrorComponent";
+import LoadingOverlay from "../elements/LoadingOverlay";
 
 const Listings = () => {
     const {
         data: listingData = [],
         isLoading,
         isError,
-        error,
     } = useQuery({
         queryKey: ["listings"],
         queryFn: async () => {
@@ -21,23 +21,16 @@ const Listings = () => {
                 throw error;  // Important for proper error handling with react-query
             }
         },
-        retry: false, // Prevent automatic retries, handle error explicitly
+        retry: false,
     });
 
     if (isLoading) {
-        return <LoadingSpinner />;
+        return <LoadingOverlay isLoading={isLoading} message={"Fetching property listings"} />
     }
 
     if (isError) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen"> {/* Center vertically */}
-                <div className="text-center text-red-600 font-bold text-2xl mb-4">
-                    Oops! Something went wrong.
-                </div>
-                <p className="text-gray-600">
-                    {error.message === "Network Error" ? "Unable to connect to the server." : error.message}
-                </p>
-            </div>
+            <ErrorComponent message="Failed to connect to server" />
         );
     }
 
