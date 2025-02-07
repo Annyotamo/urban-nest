@@ -58,6 +58,10 @@ export async function uploadData(req, res) {
     }
 
     const newListing = new Listing({
+        owner: {
+            oid: req.user.uid,
+            name: req.user.name,
+        },
         ...req.body,
         images: [],
     });
@@ -66,6 +70,6 @@ export async function uploadData(req, res) {
         const listingId = await newListing.save();
         res.status(201).json({ message: "Data successfully uploaded", id: listingId._id });
     } catch (error) {
-        res.status(500).json({ message: "Error creating uploading data", error });
+        res.status(500).json({ message: "Error uploading data", error });
     }
 }

@@ -50,7 +50,7 @@ server.use("/api/auth", loginRegisterRouter);
 server.use("/api/listing", listingRouter);
 server.use("/api/test", (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
-    res.json({ message: "Success!" });
+    res.json({ message: "Success!", user: req.user });
 });
 
 server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));

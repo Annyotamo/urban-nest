@@ -29,7 +29,7 @@ const RentSubmit = ({ toggle }) => {
 
     // Uploading all listing data
     async function listingDataUpload() {
-        return await axios.post("http://localhost:8080/api/listing/create/data", listingData);
+        return await axios.post("http://localhost:8080/api/listing/create/data", listingData, { withCredentials: true });
     }
     // Uploading all images
     async function listingImageUpload(headers) {
@@ -42,7 +42,7 @@ const RentSubmit = ({ toggle }) => {
             formData.append("images", image);
         });
 
-        await axios.post("http://localhost:8080/api/listing/create/images", formData, { headers });
+        await axios.post("http://localhost:8080/api/listing/create/images", formData, { headers, withCredentials: true });
     }
 
     return (

@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 
 const listingSchema = new Schema(
     {
+        owner: {
+            oid: { type: Schema.Types.ObjectId, ref: "User", required: true },
+            name: { type: String, required: true },
+        },
         details: {
             title: { type: String, required: true },
             price: { type: Number, required: true },
