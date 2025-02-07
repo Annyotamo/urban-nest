@@ -9,12 +9,11 @@ export async function validateEmail(email) {
 
     return { valid: true };
 }
-export async function validateUsername(username) {
-    const regex = /^[a-zA-Z0-9_]([a-zA-Z0-9_.]*[a-zA-Z0-9_])?$/;
-    if (!regex.test(username)) return { valid: false, message: "Invalid username format" };
 
-    const existingUser = await User.findOne({ username });
-    if (existingUser) return { valid: false, message: "Try a different username" };
+export function validateName(name) {
+    const regex = /^[A-Za-z]+$/;
+    if (!regex.test(name)) return { valid: false, message: "Name can only contain letters" };
+    if (name.length < 2) return { valid: false, message: "Name must be at least 2 characters" };
 
     return { valid: true };
 }

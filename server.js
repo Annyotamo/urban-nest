@@ -17,7 +17,7 @@ const server = express();
 await connectDB();
 
 // Enabling cross connection establishment
-server.use(cors());
+server.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 // For the parsing data from the req body
 server.use(express.json());
@@ -28,6 +28,8 @@ server.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
+            secure: false,
+            httpOnly: true,
             maxAge: 60 * 1000 * 30,
         },
         resave: false,
@@ -46,5 +48,9 @@ server.use(passport.session()); // attaching to the session
 // routes
 server.use("/api/auth", loginRegisterRouter);
 server.use("/api/listing", listingRouter);
+server.use("/api/test", (req, res) => {
+    if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
+    res.json({ message: "Success!" });
+});
 
 server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));

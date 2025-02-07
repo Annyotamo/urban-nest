@@ -6,49 +6,60 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { Toaster, toast } from 'react-hot-toast';
 import { GoAlertFill } from "react-icons/go";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import LoadingOverlay from '../elements/LoadingOverlay';
 
 const LocalRegister = () => {
-
     const nav = useNavigate();
+    const [loading, setLoading] = React.useState(false);
+
     const { mutateAsync } = useMutation({
-        mutationFn: async (values) => await axios.post('http://localhost:8080/api/auth/register', values)
+        mutationFn: async (values) => await axios.post('http://localhost:8080/api/auth/register', values),
     });
 
     const formik = useFormik({
         initialValues: {
-            username: '',
+            firstName: '',
+            lastName: '',
             email: '',
             password: '',
             confirmPassword: '',
         },
         validationSchema: Yup.object({
-            username: Yup.string()
-                .matches(/^[a-zA-Z0-9_]([a-zA-Z0-9_.]*[a-zA-Z0-9_])?$/, 'Invalid username format')
-                .required('Username is required')
-                .min(3, 'Username must be at least 3 characters'),
+            firstName: Yup.string()
+                .matches(/^[A-Za-z]+$/, 'First name can only contain letters')
+                .min(2, 'First name must be at least 2 characters')
+                .required('First name is required'),
+            lastName: Yup.string()
+                .matches(/^[A-Za-z]+$/, 'Last name can only contain letters')
+                .min(2, 'Last name must be at least 2 characters')
+                .required('Last name is required'),
             email: Yup.string()
                 .email('Invalid email address')
                 .required('Email is required'),
             password: Yup.string()
-                .required('Password is required')
-                .min(6, 'Password must be at least 6 characters'),
+                .min(6, 'Password must be at least 6 characters')
+                .required('Password is required'),
             confirmPassword: Yup.string()
                 .oneOf([Yup.ref('password'), null], 'Passwords must match')
                 .required('Confirm Password is required'),
         }),
         onSubmit: async (values) => {
             try {
-                const val = await mutateAsync(values);
-                console.log(val.data);
+                await mutateAsync(values);
                 toast.success('Registration successful!');
-                nav("/")
+                setLoading(true);
+                setTimeout(() => nav("/"), 2000);
             } catch (error) {
                 toast.error('Registration failed. Please try again.');
                 console.error(error.response.data);
             }
         },
     });
+
+    if (loading) {
+        return <LoadingOverlay isLoading={loading} message={"Redirecting to home"} />;
+    }
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50">
@@ -58,22 +69,42 @@ const LocalRegister = () => {
                 </h1>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="space-y-6">
-                        {/* Username Field */}
+                        {/* First Name Field */}
                         <div className="flex items-center">
                             <div className="flex-1">
                                 <Input
                                     type="text"
-                                    title="Username"
-                                    name="username"
+                                    title="First Name"
+                                    name="firstName"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    value={formik.values.username}
+                                    value={formik.values.firstName}
                                 />
                             </div>
-                            {formik.touched.username && formik.errors.username && (
+                            {formik.touched.firstName && formik.errors.firstName && (
                                 <div className="ml-2 flex items-center text-red-500 w-[40%]">
-                                    <GoAlertFill className='mr-1' />
-                                    <span className="text-xs">{formik.errors.username}</span>
+                                    <GoAlertFill className="mr-1" />
+                                    <span className="text-xs">{formik.errors.firstName}</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Last Name Field */}
+                        <div className="flex items-center">
+                            <div className="flex-1">
+                                <Input
+                                    type="text"
+                                    title="Last Name"
+                                    name="lastName"
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.lastName}
+                                />
+                            </div>
+                            {formik.touched.lastName && formik.errors.lastName && (
+                                <div className="ml-2 flex items-center text-red-500 w-[40%]">
+                                    <GoAlertFill className="mr-1" />
+                                    <span className="text-xs">{formik.errors.lastName}</span>
                                 </div>
                             )}
                         </div>
@@ -92,7 +123,7 @@ const LocalRegister = () => {
                             </div>
                             {formik.touched.email && formik.errors.email && (
                                 <div className="ml-2 flex items-center text-red-500 w-[40%]">
-                                    <GoAlertFill className='mr-1' />
+                                    <GoAlertFill className="mr-1" />
                                     <span className="text-xs">{formik.errors.email}</span>
                                 </div>
                             )}
@@ -112,7 +143,7 @@ const LocalRegister = () => {
                             </div>
                             {formik.touched.password && formik.errors.password && (
                                 <div className="ml-2 flex items-center text-red-500 w-[40%]">
-                                    <GoAlertFill className='mr-1' />
+                                    <GoAlertFill className="mr-1" />
                                     <span className="text-xs">{formik.errors.password}</span>
                                 </div>
                             )}
@@ -132,8 +163,8 @@ const LocalRegister = () => {
                             </div>
                             {formik.touched.confirmPassword && formik.errors.confirmPassword && (
                                 <div className="ml-2 flex items-center text-red-500 w-[40%]">
-                                    <GoAlertFill className='mr-1' />
-                                    <span className="text-xs">Passwords must match</span>
+                                    <GoAlertFill className="mr-1" />
+                                    <span className="text-xs">{formik.errors.confirmPassword}</span>
                                 </div>
                             )}
                         </div>

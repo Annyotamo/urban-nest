@@ -9,7 +9,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        console.log(id);
         const user = await User.findById(id);
         if (!user) throw new Error("User not found");
         done(null, user);
@@ -19,9 +18,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 export default passport.use(
-    new Strategy(async (username, password, done) => {
+    new Strategy({ usernameField: "email" }, async (username, password, done) => {
         try {
-            const user = await User.findOne({ username });
+            const user = await User.findOne({ email: username });
             if (!user) throw new Error("User not found");
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) throw new Error("Invalid password");

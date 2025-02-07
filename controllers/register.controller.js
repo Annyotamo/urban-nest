@@ -1,14 +1,16 @@
-import { validateEmail, validateUsername } from "../helpers/register.helper.js";
+import { validateEmail, validateName } from "../helpers/register.helper.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
 export async function registerUser(req, res) {
     try {
-        const { username, email, password } = req.body;
-        console.log(req.body);
+        const { firstName, lastName, email, password } = req.body;
 
-        const isUsernameValid = await validateUsername(username);
-        if (!isUsernameValid.valid) return res.status(400).json({ message: isUsernameValid.message });
+        const isFirstNameValid = validateName(firstName);
+        if (!isFirstNameValid.valid) return res.status(400).json({ message: isFirstNameValid.message });
+
+        const isLastNameValid = validateName(lastName);
+        if (!isLastNameValid.valid) return res.status(400).json({ message: isLastNameValid.message });
 
         const isEmailValid = await validateEmail(email);
         if (!isEmailValid.valid) return res.status(400).json({ message: isEmailValid.message });
@@ -18,7 +20,8 @@ export async function registerUser(req, res) {
 
         // create new user
         const newUser = new User({
-            username,
+            firstName,
+            lastName,
             email,
             password: bcrypt.hashSync(password, salt),
         });

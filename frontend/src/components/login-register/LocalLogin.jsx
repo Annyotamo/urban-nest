@@ -12,16 +12,15 @@ const LocalLogin = () => {
     const [loginError, setLoginError] = useState(null);
 
     const { mutateAsync } = useMutation({
-        mutationFn: async (values) => await axios.post('http://localhost:8080/api/auth/login', values),
+        mutationFn: async (values) => await axios.post('http://localhost:8080/api/auth/login', values, { withCredentials: true }),
         onError: (error) => {
-            toast.error('Login failed. Please check your credentials.');
-            console.error(error.response.data);
+            toast.error('Login failed');
         },
     });
 
     const formik = useFormik({
         initialValues: {
-            username: '',
+            email: '', // Change 'username' to 'email'
             password: '',
         },
         onSubmit: async (values) => {
@@ -57,12 +56,12 @@ const LocalLogin = () => {
                 >
                     <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h1>
 
-                    {/* Username/Email Field */}
+                    {/* Email Field */}
                     <Input
-                        title="Username/Email"
-                        name="username"
-                        type="text"
-                        value={formik.values.username}
+                        title="Email"
+                        name="email"
+                        type="email"
+                        value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                     />

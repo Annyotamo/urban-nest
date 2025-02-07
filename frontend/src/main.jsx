@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Rent from './components/rent/Rent.jsx'
 import { Provider } from "react-redux";
 import { store } from './redux/store.redux.js'
+import Test from './Test.jsx'
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     {
         path: "/rent",
         element: <Rent />
+    },
+    {
+        path: "/test",
+        element: <Test />
     }
 ])
 
