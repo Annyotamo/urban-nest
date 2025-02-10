@@ -17,42 +17,37 @@ const Listings = () => {
                 const response = await axios.get("http://localhost:8080/api/listing/all");
                 return response.data;
             } catch (error) {
-                // Re-throw the error to be caught by react-query
-                throw error;  // Important for proper error handling with react-query
+                throw error;
             }
         },
         retry: false,
     });
 
     if (isLoading) {
-        return <LoadingOverlay isLoading={isLoading} message={"Fetching property listings"} />
+        return <LoadingOverlay isLoading={isLoading} message={"Fetching property listings"} />;
     }
 
     if (isError) {
-        return (
-            <ErrorComponent message="Failed to connect to server" />
-        );
+        return <ErrorComponent message="Failed to connect to server" />;
     }
 
     if (listingData.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen">
-                <div className="text-center text-gray-600 font-bold text-2xl mb-4">
-                    No listings found.
-                </div>
+            <div className="flex flex-col items-center justify-center min-h-[60vh] p-6 text-center">
+                <h2 className="text-gray-700 font-semibold text-2xl mb-2">No listings found.</h2>
                 <p className="text-gray-500">Try adjusting your search or check back later.</p>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FAEDCD]">
+            <div className="flex flex-row gap-5 flex-wrap">
                 {listingData.map((listing) => (
                     <Listing listing={listing} key={listing._id} />
                 ))}
             </div>
-        </div>
+        </div >
     );
 };
 

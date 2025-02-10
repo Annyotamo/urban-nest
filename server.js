@@ -1,11 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import cors from "cors";
+
 import loginRegisterRouter from "./routes/loginReg.route.js";
 import listingRouter from "./routes/listing.route.js";
-import cors from "cors";
-import MongoStore from "connect-mongo";
+import bookingRouter from "./routes/booking.route.js";
+import userRouter from "./routes/user.route.js";
+
 import mongoose from "mongoose";
+import MongoStore from "connect-mongo";
 import session from "express-session";
 import passport from "passport";
 
@@ -48,6 +52,8 @@ server.use(passport.session()); // attaching to the session
 // routes
 server.use("/api/auth", loginRegisterRouter);
 server.use("/api/listing", listingRouter);
+server.use("/api/booking", bookingRouter);
+server.use("/api/user", userRouter);
 server.use("/api/test", (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
     res.json({ message: "Success!", user: req.user });

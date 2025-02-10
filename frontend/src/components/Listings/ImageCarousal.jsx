@@ -11,7 +11,7 @@ const ImageCarousel = ({ images }) => {
             pagination={{ type: "fraction" }}
             navigation={true}
             modules={[Pagination, Navigation]}
-            className="w-full h-48"
+            className="w-full h-44"
         >
             {images.map((image, index) => (
                 <SwiperSlide key={index}>

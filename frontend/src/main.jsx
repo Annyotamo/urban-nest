@@ -10,6 +10,8 @@ import Rent from './components/rent/Rent.jsx'
 import { Provider } from "react-redux";
 import { store } from './redux/store.redux.js'
 import Test from './Test.jsx'
+import Booking from './components/Booking/Booking.jsx'
+import UserBookings from './User/UserBookings.jsx'
 
 const router = createBrowserRouter([
     {
@@ -17,16 +19,24 @@ const router = createBrowserRouter([
         element: <App />
     },
     {
-        path: "/user-login",
+        path: "/user/login",
         element: <UserLogin />
     },
     {
-        path: "/user-register",
+        path: "/user/register",
         element: <UserRegister />
     },
     {
-        path: "/rent",
+        path: "/user/bookings",
+        element: <UserBookings />
+    },
+    {
+        path: "/list",
         element: <Rent />
+    },
+    {
+        path: "/listing/:lid",
+        element: <Booking />
     },
     {
         path: "/test",

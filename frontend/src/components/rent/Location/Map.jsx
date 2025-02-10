@@ -27,14 +27,16 @@ const MapUpdater = ({ position }) => {
     return null; // No visual output, only effect on map
 };
 
-const Map = () => {
+const Map = ({ latitude = null, longitude = null }) => {
 
     const [position, setPosition] = useState([51.505, -0.09]);
 
     const { location } = useSelector((state) => state.giveRent)
 
     useEffect(() => {
-        setPosition(location.latLng);
+        if (latitude != null && longitude != null) setPosition([latitude, longitude]);
+        else setPosition(location.latLng);
+
     }, [location])
 
 

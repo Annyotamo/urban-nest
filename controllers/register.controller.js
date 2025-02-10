@@ -24,6 +24,8 @@ export async function registerUser(req, res) {
             lastName,
             email,
             password: bcrypt.hashSync(password, salt),
+            bookings: [],
+            favourites: [],
         });
 
         // save the user in database

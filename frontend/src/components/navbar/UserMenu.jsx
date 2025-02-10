@@ -13,7 +13,7 @@ const UserMenu = () => {
     return (
         <div className='relative'>
             <div className='flex flex-row items-center gap-3'>
-                <Link to="/rent">
+                <Link to="/list">
                     <div className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer bg-rose-500 text-white hover:text-black'>
                         Rent your home
                     </div></Link>
@@ -29,9 +29,11 @@ const UserMenu = () => {
                 <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm z-50'>
                     <div className='flex flex-col cursor-pointer'>
                         <>
-                            <MenuItem label='login' endpoint="/user-login" styles="border-t" />
-                            <MenuItem label='Register' endpoint="/user-register" />
-                            <MenuItem label='logout' endpoint="/user-login" styles="border-t text-red-400" />
+                            <MenuItem label='login' endpoint="/user/login" styles="border-t" />
+                            <MenuItem label='Register' endpoint="/user/register" />
+                            <MenuItem label='Your bookings' endpoint="/user/bookings" />
+                            <MenuItem label='Favourites' endpoint="/user/favourites" />
+                            <MenuItem label='logout' endpoint="/user/login" styles="border-t text-red-400" />
                             <MenuItem label='test' endpoint="/test" styles="border-t text-red-400" />
                         </>
                     </div>
