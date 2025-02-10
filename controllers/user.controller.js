@@ -24,3 +24,24 @@ export async function getUserBookings(req, res) {
     console.log(listings);
     return res.json(listings);
 }
+
+export async function setFavourite(req, res) {
+    if (!req.user) res.status(401).json({ message: "[Unauthorized] Please login to favourite this property" });
+    if (!req.body) res.status(400).json({ message: "[Invalid] No property selected as favourite" });
+    const { lid: listingId, status } = req.body;
+    status
+        ? await User.findByIdAndUpdate(req.user.uid, { $push: { favourites: listingId } })
+        : await User.findByIdAndUpdate(req.user.uid, { $pull: { favourites: listingId } });
+    res.status(201).json({ message: "[Success] Property favourited" });
+}
+
+export async function getFavourites(req, res) {
+    if (!req.user) res.status(401).json({ message: "[Unauthorized] Please login to favourite this property" });
+    const { favourites: listings } = await User.findById(req.user.uid);
+    const favourites = await Promise.all(
+        listings.map(async (listingId) => {
+            return await Listing.findById(listingId);
+        })
+    );
+    res.json(favourites);
+}

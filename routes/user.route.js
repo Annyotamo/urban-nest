@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { getUserBookings } from "../controllers/user.controller.js";
+import { getFavourites, getUserBookings, setFavourite } from "../controllers/user.controller.js";
 
 const router = Router();
 
 router.get("/bookings", getUserBookings);
-router.get("/favourites");
+router.post("/favourites", setFavourite);
+router.get("/favourited/all", getFavourites);
 router.get("/profile");
 
 export default router;
