@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import LoadingOverlay from "../elements/LoadingOverlay"
 
 const LocalLogin = () => {
     const nav = useNavigate();
@@ -44,11 +45,7 @@ const LocalLogin = () => {
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-50">
             {isLoading ? (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg">
-                        <p className="text-lg font-semibold">Login successful, sending you back to the homepage...</p>
-                    </div>
-                </div>
+                <LoadingOverlay isLoading={isLoading} message="Redirecting to home" />
             ) : (
                 <form
                     onSubmit={formik.handleSubmit}

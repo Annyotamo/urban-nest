@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
+import LoginPromtOverlay from './components/elements/LoginPromtOverlay';
 const Test = () => {
 
     const [value, setValue] = React.useState("");
+    const [errorStatus, setErrorStatus] = React.useState(0);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await axios.get("http://localhost:8080/api/test", { withCredentials: true });
-                console.log(res.data);
-                setValue(res.data.message);
+                if (res.status == 200) {
+                    console.log(res.data);
+                    setValue(res.data.message);
+                }
+
             } catch (error) {
-                console.log(error);
+                setErrorStatus(error.status)
                 setValue(error.message);
             }
         }
@@ -20,6 +25,7 @@ const Test = () => {
     return (
         <div>
             {value}
+            {errorStatus === 401 && <LoginPromtOverlay />}
         </div>
     )
 }

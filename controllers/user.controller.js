@@ -36,7 +36,7 @@ export async function setFavourite(req, res) {
 }
 
 export async function getFavourites(req, res) {
-    if (!req.user) res.status(401).json({ message: "[Unauthorized] Please login to favourite this property" });
+    if (!req.user) return res.status(401).json({ message: "[Unauthorized] Please login to favourite this property" });
     const { favourites: listings } = await User.findById(req.user.uid);
     const favourites = await Promise.all(
         listings.map(async (listingId) => {

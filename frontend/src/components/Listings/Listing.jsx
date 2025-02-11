@@ -1,6 +1,6 @@
 import React from "react";
 import { FaMapMarkerAlt, FaBed, FaBath, FaPaw, FaBan } from "react-icons/fa";
-import ImageCarousel from "./ImageCarousal";
+import ImageCarousal from "../elements/ImageCarousal";
 import { Link } from "react-router-dom";
 
 const Listing = ({ listing }) => {
@@ -11,7 +11,7 @@ const Listing = ({ listing }) => {
         >
             {/* Image Carousel */}
             {listing.images?.length > 0 ? (
-                <ImageCarousel images={listing.images} />
+                <ImageCarousal images={listing.images} height={44} />
             ) : (
                 <div className="w-full h-40 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
                     No Image Available

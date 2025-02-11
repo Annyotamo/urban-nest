@@ -12,6 +12,7 @@ import { store } from './redux/store.redux.js'
 import Test from './Test.jsx'
 import Booking from './components/Booking/Booking.jsx'
 import UserBookings from './User/UserBookings.jsx'
+import UserFavourites from './User/UserFavourites.jsx'
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
     {
         path: "/listing/:lid",
         element: <Booking />
+    },
+    {
+        path: "/user/favourites",
+        element: <UserFavourites />
     },
     {
         path: "/test",
