@@ -7,7 +7,7 @@ const Listing = ({ listing }) => {
     return (
         <div
             key={listing._id}
-            className="bg-[#FAF3E0] rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-2xl w-full sm:w-[22rem]"
+            className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-2xl w-full sm:w-[22rem]"
         >
             {/* Image Carousel */}
             {listing.images?.length > 0 ? (

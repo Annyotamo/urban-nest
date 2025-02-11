@@ -92,8 +92,8 @@ export const options = [
 const Categories = () => {
 
     return (
-        <Container>
-            <div className='pt-4 flex flew-row items-center justify-between overflow-x-auto'>
+        <Container styles="bg-[#FAF3E0] shadow-lg">
+            <div className='py-4 flex flew-row items-center justify-between overflow-x-auto'>
                 {options.map((item) => <Option key={item.label} label={item.label} description={item.description} Icon={item.icon} />
                 )}
             </div>

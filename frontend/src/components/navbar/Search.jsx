@@ -3,19 +3,11 @@ import { BiSearch } from "react-icons/bi"
 
 const Search = () => {
     return (
-        <div className='border=[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer'>
-            <div className='flex flex-row items-center justify-between'>
-                <div className='text-sm font-semibold px-6'>
-                    Anywhere
-                </div>
-                <div className='hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center'>
-                    Anyweek
-                </div>
-                <div className='text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3'>
-                    <div className='hidden sm:block'>Add guests</div>
-                    <div className='p-2 bg-rose-500 rounded-full text-white'>
-                        <BiSearch size={18} />
-                    </div>
+        <div className='border=[1px] w-full md:w-[50vw] p-4 shadow-md transition cursor-pointer bg-[#FAEDCD] rounded-xl'>
+            <div className='text-sm text-brown-700 flex flex-row items-center justify-between gap-2'>
+                <input type='text' className='bg-[#FAEDCD] p-2 w-[100%] outline-0' placeholder='Search anything, anywhere....' />
+                <div className='p-2 bg-[#D4A373] rounded-full text-white'>
+                    <BiSearch size={30} />
                 </div>
             </div>
         </div>

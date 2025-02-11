@@ -4,7 +4,7 @@ import logo from "../../assets/urbanNestLogo.png"
 const Logo = () => {
     return (
         <div>
-            <img src={logo} alt="logo" className="hidden md:block cursor-pointer" height="100" width="100" />
+            <img src={logo} alt="logo" className="hidden md:block cursor-pointer" height="200" width="200" />
         </div>
     )
 }

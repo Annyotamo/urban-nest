@@ -14,7 +14,7 @@ const UserMenu = () => {
         <div className='relative'>
             <div className='flex flex-row items-center gap-3'>
                 <Link to="/list">
-                    <div className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer bg-rose-500 text-white hover:text-black'>
+                    <div className='hidden md:block text-sm p-6 rounded-lg transition cursor-pointer bg-brown-300 text-brown-700 font-bold'>
                         Rent your home
                     </div></Link>
                 <div onClick={toggleOpen}
