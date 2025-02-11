@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { GoAlert } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
-const ErrorOverlay = ({ message = "Something went wrong!", queryKey = [], mutationKey = [] }) => {
+const ErrorOverlay = ({ message = "Something went wrong!", queryKey = [], close }) => {
     const nav = useNavigate();
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const ErrorOverlay = ({ message = "Something went wrong!", queryKey = [], mutati
                         <div className="flex gap-4">
                             <button
                                 className="p-2 w-[70%] hover:bg-red-500 text-white rounded-lg bg-red-400 transition"
-                                onClick={() => queryClient.invalidateQueries({ queryKey })}
+                                onClick={() => close ? close(null) : queryClient.invalidateQueries({ queryKey })}
                             >
                                 Retry
                             </button>

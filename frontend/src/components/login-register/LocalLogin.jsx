@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import Input from '../elements/Input.element';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import LoadingOverlay from "../elements/LoadingOverlay"
+import InputElement from '../elements/InputElement';
+import ErrorOverlay from '../elements/ErrorOverlay';
 
 const LocalLogin = () => {
     const nav = useNavigate();
@@ -13,6 +14,7 @@ const LocalLogin = () => {
     const [loginError, setLoginError] = useState(null);
 
     const { mutateAsync } = useMutation({
+        mutationKey: ["Login"],
         mutationFn: async (values) => await axios.post('http://localhost:8080/api/auth/login', values, { withCredentials: true }),
         onError: (error) => {
             toast.error('Login failed');
@@ -54,26 +56,17 @@ const LocalLogin = () => {
                     <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h1>
 
                     {/* Email Field */}
-                    <Input
-                        title="Email"
-                        name="email"
-                        type="email"
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
+                    <InputElement formik={formik} type="email" name="email" title="Email" />
 
                     {/* Password Field */}
-                    <Input
+                    <InputElement
+                        formik={formik}
                         title="Password"
                         name="password"
                         type="password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
                     />
 
-                    {loginError != null && <div className='p-2 text-white bg-red-400 rounded-md'>{loginError.message}</div>}
+                    {loginError != null && <ErrorOverlay message={loginError.message} queryKey={["Login"]} close={setLoginError} />}
 
                     {/* Submit Button */}
                     <button

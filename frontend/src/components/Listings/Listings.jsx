@@ -28,8 +28,7 @@ const Listings = () => {
     }
 
     if (isError) {
-
-        return <ErrorComponent message="Failed to connect to server" />;
+        return <ErrorComponent message="Server down" />;
     }
 
     if (listingData.length === 0) {
