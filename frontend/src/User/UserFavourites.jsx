@@ -9,9 +9,12 @@ import ImageCarousal from "../components/elements/ImageCarousal";
 import LoadingOverlay from "../components/elements/LoadingOverlay";
 import Navbar from "../components/navbar/Navbar";
 import LoginPromtOverlay from "../components/elements/LoginPromtOverlay"
+import ErrorOverlay from "../components/elements/ErrorOverlay";
+import { QueryClient } from "@tanstack/react-query";
 
 const UserFavourites = () => {
-    const { data: favourites = [], isLoading, isError } = useQuery({
+
+    const { data: favourites = [], isLoading, isError, error } = useQuery({
         queryKey: ["Favourites"],
         queryFn: async () =>
             (await axios.get("http://localhost:8080/api/user/favourited/all", { withCredentials: true })).data,
@@ -23,10 +26,12 @@ const UserFavourites = () => {
             <LoadingOverlay message="Fetching your favourites" isLoading={isLoading} />
         );
 
-    if (isError)
-        return (
-            <LoginPromtOverlay message="view your favourites" />
-        );
+    if (isError) {
+        if (error.status === 401) return <LoginPromtOverlay message="view your favourites" />
+        return <ErrorOverlay queryKey={["Favourites"]} />
+    }
+
+
 
     return (
         <div className="bg-[#FAF3E0]">

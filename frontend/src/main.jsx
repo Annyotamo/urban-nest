@@ -49,17 +49,15 @@ const router = createBrowserRouter([
     }
 ])
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router}>
-                    <App />
-                </RouterProvider>
-            </QueryClientProvider>
-        </Provider>
-    </StrictMode>
+    <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router}>
+                <App />
+            </RouterProvider>
+        </QueryClientProvider>
+    </Provider>
 
 )

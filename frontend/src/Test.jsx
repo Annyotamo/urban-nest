@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import LoginPromtOverlay from './components/elements/LoginPromtOverlay';
+import ErrorOverlay from "./components/elements/ErrorOverlay"
 const Test = () => {
 
     const [value, setValue] = React.useState("");
@@ -25,7 +26,7 @@ const Test = () => {
     return (
         <div>
             {value}
-            {errorStatus === 401 && <LoginPromtOverlay />}
+            {errorStatus === 401 && <ErrorOverlay />}
         </div>
     )
 }

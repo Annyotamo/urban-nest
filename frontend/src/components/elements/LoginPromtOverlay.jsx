@@ -21,7 +21,7 @@ const LoginPromtOverlay = ({ message = "add to favourites" }) => {
     }, []);
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg z-[1000000] md:p-0 p-8">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg z-[50] md:p-0 p-8">
             {/* Bubbles Animation */}
             <div className="absolute inset-0 overflow-hidden">
                 {bubbles.map((bubble) => (
