@@ -8,7 +8,7 @@ import EmptyStateComponent from "../elements/EmptyStateComponent";
 import { useSelector } from "react-redux";
 
 const Listings = () => {
-    const { search } = useSelector(state => state.search);
+    const { search, category: cat } = useSelector(state => state.search);
 
     const {
         data: listingData = [],
@@ -27,16 +27,16 @@ const Listings = () => {
         retry: false,
     });
 
-    const filterListing = useCallback((listing) =>
-        listing.details.title.toLowerCase().includes(search.toLowerCase()) ||
-        listing.location.country.toLowerCase().startsWith(search.toLowerCase()),
-        [search]);
+    const filterSearch = (listing) => listing.details.title.toLowerCase().includes(search.toLowerCase()) ||
+        listing.location.country.toLowerCase().startsWith(search.toLowerCase());
+
+    console.log(cat);
 
     if (isLoading) return <LoadingOverlay isLoading={isLoading} message={"Fetching property listings"} />;
     if (isError) return <ErrorComponent message="Server down" />;
     if (listingData.length === 0) return <EmptyStateComponent />;
 
-    const filteredListings = listingData.filter(filterListing);
+    const filteredListings = listingData.filter(filterSearch);
 
     return (
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FAEDCD]">

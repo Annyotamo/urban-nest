@@ -7,7 +7,6 @@ import { FaSkiing } from "react-icons/fa"
 import { BsSnow } from "react-icons/bs"
 import Option from '../elements/Option.element'
 import { IoDiamond } from "react-icons/io5"
-import { useSelector } from 'react-redux'
 
 export const options = [
     {
