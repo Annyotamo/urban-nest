@@ -18,4 +18,33 @@ router.post(
     }
 );
 
+router.post("/logout", (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.status(500).json({ message: "Logout failed" });
+        }
+
+        req.session.destroy((err) => {
+            // Destroy the session in the store
+            if (err) {
+                console.error("Session destroy error:", err);
+                return res.status(500).json({ message: "Logout failed" });
+            }
+            res.clearCookie("connect.sid");
+            console.log("ok");
+            res.json({ message: "Logout successful" });
+        });
+    });
+});
+
+router.get("/status", (req, res) => {
+    console.log(req.user);
+    if (req.isAuthenticated()) {
+        res.json({ isAuthenticated: true, user: req.user }); // User is logged in, send user data if needed
+    } else {
+        res.json({ isAuthenticated: false }); // User is not logged in
+    }
+});
+
 export default router;

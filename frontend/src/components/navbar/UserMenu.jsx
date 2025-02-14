@@ -3,6 +3,7 @@ import { AiOutlineMenu } from "react-icons/ai"
 import Avatar from '../Avatar'
 import MenuItem from './MenuItem';
 import { Link } from 'react-router-dom';
+import MenuItems from './MenuItems';
 
 const UserMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ const UserMenu = () => {
         <div className='relative'>
             <div className='flex flex-row items-center gap-3'>
                 <Link to="/list">
-                    <div className='hidden md:block text-sm p-6 rounded-lg transition cursor-pointer bg-brown-300 text-brown-700 font-bold'>
+                    <div className='hidden md:block p-4 text-lg rounded-lg transition cursor-pointer bg-[#D4A373] text-white'>
                         Rent your home
                     </div></Link>
                 <div onClick={toggleOpen}
@@ -28,14 +29,7 @@ const UserMenu = () => {
             {isOpen && (
                 <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm z-50'>
                     <div className='flex flex-col cursor-pointer'>
-                        <>
-                            <MenuItem label='login' endpoint="/user/login" styles="border-t" />
-                            <MenuItem label='Register' endpoint="/user/register" />
-                            <MenuItem label='Your bookings' endpoint="/user/bookings" />
-                            <MenuItem label='Favourites' endpoint="/user/favourites" />
-                            <MenuItem label='logout' endpoint="/user/login" styles="border-t text-red-400" />
-                            <MenuItem label='test' endpoint="/test" styles="border-t text-red-400" />
-                        </>
+                        <MenuItems />
                     </div>
                 </div>)}
         </div>

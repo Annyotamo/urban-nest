@@ -58,7 +58,7 @@ const LocalRegister = () => {
                 await mutateAsync(values);
                 toast.success('Registration successful!');
                 setLoading(true);
-                setTimeout(() => nav('/'), 2000);
+                setTimeout(() => nav('/user/login'), 2000);
             } catch (error) {
                 toast.error('Registration failed. Please try again.');
                 console.error(error.response.data);

@@ -1,14 +1,16 @@
 export function setSearch(state, action) {
-    console.log(action.payload);
-    const search = action.payload;
-    return { search, ...state.category };
+    return { ...state, search: action.payload };
 }
 
 export function setSearchCategory(state, action) {
-    console.log(state.category);
-    if (state.category.indexOf(action.payload) != -1) {
-        const categories = state.category.filter((cat) => cat != action.payload);
-        return { search: state.search, category: categories };
+    const category = [...state.category];
+
+    if (category.includes(action.payload)) {
+        const index = category.indexOf(action.payload);
+        category.splice(index, 1);
+    } else {
+        category.push(action.payload);
     }
-    return { search: state.search, category: [action.payload, ...state.category] };
+
+    return { ...state, category: category };
 }

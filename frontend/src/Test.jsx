@@ -26,7 +26,7 @@ const Test = () => {
     return (
         <div>
             {value}
-            {errorStatus === 401 && <ErrorOverlay />}
+            {errorStatus === 401 && <ErrorOverlay home={true} close={true} />}
         </div>
     )
 }
