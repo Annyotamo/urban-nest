@@ -89,9 +89,8 @@ export const options = [
 
 
 const Categories = () => {
-
     return (
-        <Container styles="bg-[#FAF3E0] shadow-lg">
+        <Container styles="bg-gradient-to-b from-[#FAF3E0] to-[#FFF7E1] shadow-md bg-opacity-60 relative z-10">
             <div className='py-4 flex flew-row items-center justify-between overflow-x-auto'>
                 {options.map((item) => <Option key={item.label} label={item.label} description={item.description} Icon={item.icon} />
                 )}

@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import urbanNestLogo from "../../assets/urbanNestLogo.png";
+import { MdOutlineCancel } from "react-icons/md";
 
-const LoginPromtOverlay = ({ message = "add to favourites" }) => {
+const LoginPromtOverlay = ({ message = "add to favourites", close = false, closeFunc = () => { } }) => {
     const [bubbles, setBubbles] = useState([]);
 
     useEffect(() => {
-        document.body.style.overflow = 'hidden';
         const createBubbles = () => {
             return new Array(20).fill(0).map((_, i) => ({
                 id: i,
@@ -17,11 +17,13 @@ const LoginPromtOverlay = ({ message = "add to favourites" }) => {
             }));
         };
         setBubbles(createBubbles());
-        () => document.body.style.overflow = 'auto';
     }, []);
 
+    let closeComponent = <></>
+    if (close) closeComponent = (<button className="absolute top-1 right-1 text-[#DAB49D]" onClick={closeFunc}><MdOutlineCancel size={20} /></button>)
+
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg z-[50] md:p-0 p-8">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg md:p-0 p-8 z-[10000]">
             {/* Bubbles Animation */}
             <div className="absolute inset-0 overflow-hidden">
                 {bubbles.map((bubble) => (
@@ -64,8 +66,11 @@ const LoginPromtOverlay = ({ message = "add to favourites" }) => {
                         <button className="px-6 py-2 hover:bg-[#D4A373] text-white rounded-full bg-[#DAB49D] transition">
                             Login
                         </button>
+                        {closeComponent}
                     </div>
                 </div>
+
+
             </motion.div>
         </div>
     );

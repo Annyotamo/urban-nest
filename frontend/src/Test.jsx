@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import LoginPromtOverlay from './components/elements/LoginPromtOverlay';
 import ErrorOverlay from "./components/elements/ErrorOverlay"
+import HeroBanner from './components/elements/HeroBanner';
 const Test = () => {
 
     const [value, setValue] = React.useState("");
@@ -27,6 +28,7 @@ const Test = () => {
         <div>
             {value}
             {errorStatus === 401 && <ErrorOverlay home={true} close={true} />}
+            <HeroBanner />
         </div>
     )
 }

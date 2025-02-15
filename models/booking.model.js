@@ -11,6 +11,26 @@ const bookingSchema = new Schema(
             start: { type: Schema.Types.Date, required: true },
             end: { type: Schema.Types.Date, required: true },
         },
+        guests: [
+            {
+                firstName: {
+                    type: String,
+                    required: true,
+                },
+                lastName: {
+                    type: String,
+                    required: true,
+                },
+                Country: {
+                    type: String,
+                    required: true,
+                },
+                age: {
+                    type: String,
+                    required: true,
+                },
+            },
+        ],
     },
     { timestamps: true }
 );

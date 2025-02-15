@@ -6,8 +6,8 @@ import UserMenu from './UserMenu'
 
 const Navbar = () => {
     return (
-        <div className="w-full bg-[#FAF3E0]">
-            <div className="py-4 border-b-[1px]">
+        <div className="w-full bg-gradient-to-b from-[#edd9a6] to-[#FAF3E0]">
+            <div className="py-4">
                 <Container>
                     <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
                         <Logo />
@@ -19,5 +19,6 @@ const Navbar = () => {
         </div>
     )
 }
+
 
 export default Navbar

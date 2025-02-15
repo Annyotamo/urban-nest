@@ -1,16 +1,15 @@
 import React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaBed, FaBath, FaHeart } from "react-icons/fa";
-import toast from "react-hot-toast";
+import { FaMapMarkerAlt, FaBed, FaBath } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ImageCarousal from "../components/elements/ImageCarousal";
 import LoadingOverlay from "../components/elements/LoadingOverlay";
-import Navbar from "../components/navbar/Navbar";
 import LoginPromtOverlay from "../components/elements/LoginPromtOverlay"
 import ErrorOverlay from "../components/elements/ErrorOverlay";
-import { QueryClient } from "@tanstack/react-query";
+import HeroBanner from "../components/elements/HeroBanner";
+import { queryClient } from "../main";
 
 const UserFavourites = () => {
 
@@ -28,16 +27,16 @@ const UserFavourites = () => {
 
     if (isError) {
         if (error.status === 401) return <LoginPromtOverlay message="view your favourites" />
-        return <ErrorOverlay queryKey={["Favourites"]} />
+        return <ErrorOverlay home={true} actionFunc={() =>
+            queryClient.invalidateQueries({ queryKey: ["Favourites"] })} />
     }
 
 
 
     return (
         <div className="bg-[#FAF3E0]">
-            <Navbar />
+            <HeroBanner />
             <div className="max-w-5xl mx-auto px-4 py-8">
-                <h2 className="text-3xl font-semibold mb-6">Your Favourite Properties</h2>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

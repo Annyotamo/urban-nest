@@ -56,8 +56,7 @@ const RentAd = ({ toggle }) => {
             `}</style>
 
             <div
-                className="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full max-w-4xl"
-                style={{ backgroundColor: '#E9EDC9' }}
+                className="bg-[#E9EDC9] p-6 md:p-8 rounded-lg shadow-xl w-full max-w-4xl"
             >
                 <h1
                     className="text-2xl md:text-4xl font-extrabold text-center mb-6"
