@@ -1,12 +1,13 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import urbanNestLogo from "../../assets/urbanNestLogo.png";
-import { MdOutlineCancel } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-
-const LoginPromtOverlay = ({ message = "add to favourites", close = false, closeFunc = () => { } }) => {
+import React from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { FaCircleUser } from "react-icons/fa6";
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
+import LoginPromtOverlay from '../elements/LoginPromtOverlay';
+const User = () => {
     const [bubbles, setBubbles] = useState([]);
-    const nav = useNavigate();
 
     useEffect(() => {
         const createBubbles = () => {
@@ -21,12 +22,20 @@ const LoginPromtOverlay = ({ message = "add to favourites", close = false, close
         setBubbles(createBubbles());
     }, []);
 
-    let closeComponent = <></>
-    if (close) closeComponent = (<button className="absolute top-1 right-1 text-[#DAB49D]" onClick={closeFunc}><MdOutlineCancel size={20} /></button>)
+    const { data, isLoading, isSuccess } = useQuery({
+        queryKey: ["profile-auth"],
+        queryFn: async () => {
+            const { data } = await axios.get("http://localhost:8080/api/auth/status", { withCredentials: true })
+            return data;
+        }
+    })
+
+    if (isSuccess) {
+        if (!data.isAuthenticated) return <LoginPromtOverlay message="See your profile" />
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg md:p-0 p-8 z-[10000]">
-            {/* Bubbles Animation */}
             <div className="absolute inset-0 overflow-hidden">
                 {bubbles.map((bubble) => (
                     <motion.div
@@ -50,8 +59,6 @@ const LoginPromtOverlay = ({ message = "add to favourites", close = false, close
                     />
                 ))}
             </div>
-
-            {/* Content */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -59,23 +66,14 @@ const LoginPromtOverlay = ({ message = "add to favourites", close = false, close
                 className="relative bg-white/70 backdrop-blur-md rounded-lg shadow-xl text-center"
             >
                 <div className="flex flex-col sm:flex-row rounded-r-lg">
-                    <div className="md:w-[60%] sm:p-8 p-2 bg-[#DAB49D]/60 rounded-lg flex justify-center items-center">
-                        <img src={urbanNestLogo} className="w-[150px] sm:w-[250px]" />
-                    </div>
-                    <div className="md:w-[40%] w-full flex flex-col justify-center p-8 text-left">
-                        <h2 className="md:text-2xl text-lg font-bold mb-2">Login Required</h2>
-                        <p className="text-gray-600 mb-4">You need to log in to {message}.</p>
-                        <button className="px-6 py-2 hover:bg-[#D4A373] text-white rounded-full bg-[#DAB49D] transition" onClick={() => nav("/user/login")}>
-                            Login
-                        </button>
-                        {closeComponent}
+                    <div className="w-full p-8">
+                        <FaCircleUser size={50} className='text-[#DAB49D]' />
+                        {/* Display user details here*/}
                     </div>
                 </div>
-
-
             </motion.div>
         </div>
-    );
-};
+    )
+}
 
-export default LoginPromtOverlay;
+export default User

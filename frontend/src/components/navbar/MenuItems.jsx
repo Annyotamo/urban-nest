@@ -1,46 +1,45 @@
-import React, { useState } from 'react'
-import MenuItem from './MenuItem'
-import { useDispatch } from 'react-redux'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { setAuth } from "../../redux/slices/auth/auth.slice.js"
-import axios from "axios";
-import ErrorOverlay from "../elements/ErrorOverlay.jsx"
+import React, { useState } from 'react';
+import MenuItem from './MenuItem';
+import { useDispatch } from 'react-redux';
+import { setAuth } from "../../redux/slices/auth/auth.slice.js";
+import ErrorOverlay from "../elements/ErrorOverlay.jsx";
+import { FaHome } from 'react-icons/fa';
+import useAuthStatus from '../../hooks/useAuthStatus.js';
+import useLogout from '../../hooks/useLogout.js';
+import LoadingOverlay from '../elements/LoadingOverlay.jsx';
+
 const MenuItems = () => {
     const dispatch = useDispatch();
     const [logout, setLogout] = useState(false);
-    const { data, isSuccess } = useQuery({
-        queryKey: ["Auth"],
-        queryFn: async () => await axios.get("http://localhost:8080/api/auth/status", { withCredentials: true }),
-        refetchOnMount: true,
-        refetchOnReconnect: true,
-    })
 
-    const { mutate, isError } = useMutation({
-        mutationKey: ["Logout"],
-        mutationFn: async () => await axios.post("http://localhost:8080/api/auth/logout", {}, { withCredentials: true }),
-        onSuccess: () => {
-            dispatch(setAuth(false));
-        }
-    })
+    const { data: authStatus, isLoading, isError, isSuccess } = useAuthStatus();
+    const { mutate: logoutMutate, isError: logoutIsError } = useLogout();
 
-    function handleLogout() {
-        setLogout(prev => !prev);
+    if (isLoading) {
+        return <LoadingOverlay />
     }
 
-    if (logout) return <ErrorOverlay close={true} closeFunc={() => setLogout(false)} action="Logout" actionFunc={() => { mutate(); setLogout(false); }} message="Are you sure?" />
-    if (isSuccess) { console.log(data.data); dispatch(setAuth(data.data.isAuthenticated)) };
-    if (isError) return <ErrorOverlay />
+    if (isError || logoutIsError) {
+        return <ErrorOverlay home={true} />; // More specific message
+    }
+
+    if (logout) return <ErrorOverlay close={true} closeFunc={() => setLogout(false)} action="Logout" actionFunc={() => { logoutMutate(); setLogout(false); }} message="Are you sure?" />;
+
+    if (isSuccess && authStatus && authStatus.data) {
+        dispatch(setAuth(authStatus.data.isAuthenticated));
+    }
+
 
     return (
         <div>
+            <MenuItem label='Profile' endpoint="/user" />
             <MenuItem label='Your bookings' endpoint="/user/bookings" />
             <MenuItem label='Favourites' endpoint="/user/favourites" />
             <MenuItem label='Register' endpoint="/user/register" styles="border-t" />
-            {(data?.data.isAuthenticated === false || data == null) && <MenuItem label='login' endpoint="/user/login" styles="" />}
-            {data?.data.isAuthenticated === true && <MenuItem label='logout' styles="border-t text-red-400" onClick={handleLogout} />}
-            <MenuItem label='test' endpoint="/test" styles="border-t text-red-400" />
+            {(isSuccess && authStatus && authStatus.data && (authStatus.data.isAuthenticated === false || authStatus.data == null)) && <MenuItem label='login' endpoint="/user/login" />}
+            {isSuccess && authStatus && authStatus.data && authStatus.data.isAuthenticated === true && <MenuItem label='logout' styles="text-red-400" onClick={() => setLogout(true)}><FaHome className='mr-2' /></MenuItem>}
         </div>
-    )
+    );
 }
 
-export default MenuItems
+export default MenuItems;

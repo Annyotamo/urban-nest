@@ -39,7 +39,6 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/status", (req, res) => {
-    console.log(req.user);
     if (req.isAuthenticated()) {
         res.json({ isAuthenticated: true, user: req.user }); // User is logged in, send user data if needed
     } else {

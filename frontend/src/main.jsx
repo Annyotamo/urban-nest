@@ -13,6 +13,7 @@ import Test from './Test.jsx'
 import Booking from './components/Booking/Booking.jsx'
 import UserBookings from './User/UserBookings.jsx'
 import UserFavourites from './User/UserFavourites.jsx'
+import User from './components/User/User.jsx'
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
     {
         path: "/user/favourites",
         element: <UserFavourites />
+    },
+    {
+        path: "/user",
+        element: <User />
     },
     {
         path: "/test",

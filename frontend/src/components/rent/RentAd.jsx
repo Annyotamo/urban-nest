@@ -23,7 +23,7 @@ const RentAd = ({ toggle }) => {
                 } else {
                     scrollElement.scrollLeft += 2; // Increased speed for faster scrolling
                 }
-            }, 10); // Faster scroll interval
+            }, 10);
         }
 
         return () => clearInterval(scrollInterval);

@@ -8,13 +8,6 @@ import { useNavigate } from "react-router-dom";
 const ErrorOverlay = ({ message = "Something went wrong!", action = "Retry", actionFunc, close = false, closeFunc, home = false }) => {
     const nav = useNavigate();
 
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = "auto";
-        };
-    }, []);
-
     let HomeComponent = <></>
     if (home) HomeComponent = (<button
         className="p-2 bg-[#DAB49D] hover:bg-[#D4A373] text-white rounded-full transition"
