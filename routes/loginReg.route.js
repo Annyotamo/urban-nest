@@ -2,6 +2,7 @@ import express from "express";
 import { registerUser } from "../controllers/register.controller.js";
 import passport from "passport";
 import "../strategy/local.strategy.js";
+import User from "../models/user.model.js";
 
 const router = express.Router();
 
@@ -32,17 +33,25 @@ router.post("/logout", (req, res) => {
                 return res.status(500).json({ message: "Logout failed" });
             }
             res.clearCookie("connect.sid");
-            console.log("ok");
             res.json({ message: "Logout successful" });
         });
     });
 });
 
-router.get("/status", (req, res) => {
+router.get("/status", async (req, res) => {
     if (req.isAuthenticated()) {
-        res.json({ isAuthenticated: true, user: req.user }); // User is logged in, send user data if needed
+        const user = await User.findById(req.user.uid);
+        res.json({
+            isAuthenticated: true,
+            user: {
+                uid: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+            },
+        });
     } else {
-        res.json({ isAuthenticated: false }); // User is not logged in
+        res.json({ isAuthenticated: false });
     }
 });
 

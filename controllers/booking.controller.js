@@ -2,7 +2,6 @@ import Booking from "../models/booking.model.js";
 import User from "../models/user.model.js";
 
 export async function createBooking(req, res) {
-    console.log(req.body);
     if (!req.user) return res.status(401).json({ message: "[Unauthorized] Login to create a booking." });
     if (!req.body || req.body.date.start == null || req.body.date.end == null || req.body.guests.length < 0)
         return res.status(400).json({ message: "[Invalid] Enter booking details to proceed." });

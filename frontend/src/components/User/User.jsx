@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaCircleUser } from "react-icons/fa6";
+import useAuthStatus from '../../hooks/useAuthStatus';
+import LoadingOverlay from '../elements/LoadingOverlay';
+import { Link } from "react-router-dom";
 const User = () => {
     const [bubbles, setBubbles] = useState([]);
 
@@ -18,6 +21,12 @@ const User = () => {
         };
         setBubbles(createBubbles());
     }, []);
+
+    const { data: userData, isLoading } = useAuthStatus();
+
+    if (isLoading) return <LoadingOverlay message="Fetching user details" />
+
+    const { user } = userData?.data || {};
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg md:p-0 p-8 z-[10000]">
@@ -48,12 +57,27 @@ const User = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="relative bg-white/70 backdrop-blur-md rounded-lg shadow-xl text-center"
+                className="relative bg-white/70 backdrop-blur-md rounded-lg shadow-xl text-center p-8"
             >
                 <div className="flex flex-col sm:flex-row rounded-r-lg">
                     <div className="w-full p-8">
-                        <FaCircleUser size={50} className='text-[#DAB49D]' />
-                        {/* Display user details here*/}
+                        <FaCircleUser size={50} className='text-[#DAB49D] mx-auto' />
+                        <h2 className="text-2xl font-semibold mt-4">{user?.firstName} {user?.lastName}</h2>
+                        <p className="text-gray-600">{user?.email}</p>
+
+                        <div className="mt-6 space-y-4">
+                            <button className="w-full py-2 px-4 bg-[#DAB49D] text-white rounded-lg shadow-md hover:bg-[#C89B8A] transition duration-300">
+                                <Link to="/user/bookings">
+                                    View Bookings</Link>
+
+                            </button>
+                            <button className="w-full py-2 px-4 bg-[#DAB49D] text-white rounded-lg shadow-md hover:bg-[#C89B8A] transition duration-300">
+                                <Link to="/user/favourites">
+                                    View Favorites
+                                </Link>
+
+                            </button>
+                        </div>
                     </div>
                 </div>
             </motion.div>

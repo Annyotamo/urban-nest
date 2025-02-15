@@ -13,6 +13,7 @@ import LoginPromptOverlay from "../components/elements/LoginPromtOverlay"
 import HeroBanner from "../components/elements/HeroBanner";
 import ErrorOverlay from "../components/elements/ErrorOverlay";
 import { queryClient } from "../main"
+import EmptyStateComponent from "../components/elements/EmptyStateComponent";
 
 const UserBookings = () => {
 
@@ -32,8 +33,24 @@ const UserBookings = () => {
         if (error.status) return (
             <LoginPromptOverlay message="view your bookings" />
         )
-        return <ErrorOverlay home={true} actionFunc={() => queryClient.invalidateQueries({ queryKey: ["User-Booking"] })} />
+        return (
+            <div className="bg-[#FAF3E0]">
+                <HeroBanner />
+                <div className="max-w-5xl mx-auto px-4 py-8">
+                    <EmptyStateComponent primary="No bookings found." secondary="You haven't booked any listings yet." />
+                </div>
+            </div>
+        );
     }
+
+    if (data?.length === 0) return (
+        <div className="bg-[#FAF3E0]">
+            <HeroBanner />
+            <div className="max-w-5xl mx-auto px-4 py-8">
+                <EmptyStateComponent primary="No bookings found." secondary="You haven't booked any listings yet." />
+            </div>
+        </div>
+    );
 
     return (
         <div className=" bg-[#FAF3E0]">

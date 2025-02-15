@@ -42,9 +42,11 @@ const Listings = () => {
 
     if (isLoading) return <LoadingOverlay isLoading={isLoading} message={"Fetching property listings"} />;
     if (isError) return <ErrorComponent message="Server down" />;
-    if (listingData.length === 0) return <EmptyStateComponent />;
+    if (listingData.length === 0) return <EmptyStateComponent primary="No listings found." secondary="Try adjusting your search or check back later." />;
 
     const filteredListings = listingData.filter(filterSearch).filter(filterCategory);
+
+    if (filteredListings.length === 0) return <EmptyStateComponent primary="No listings match your filters." secondary="Try adjusting your filters or check back later." />;
 
     return (
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FAEDCD] relative z-0">

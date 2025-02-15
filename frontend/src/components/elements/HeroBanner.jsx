@@ -2,7 +2,7 @@ import React from "react";
 import { FaHome } from "react-icons/fa";
 import logo from "../../assets/urbanNestLogo.png";
 
-const HeroBanner = ({ action }) => {
+const HeroBanner = ({ action, collapse = false }) => {
     return (
         <div className="flex flex-col items-center justify-center text-[#5F4B32] bg-gradient-to-r from-[#FAEDCD] via-[#E9EDC9] to-[#D4A373] p-6 py-20 sm:py-4 shadow-lg">
 

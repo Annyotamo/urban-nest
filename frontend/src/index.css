@@ -6,7 +6,8 @@ html,
 body,
 :root {
     height: 100%;
-    @apply selection:bg-transparent;
+    @apply selection:bg-brown-300;
+    @apply selection:bg-opacity-50;
 }
 
 @keyframes float {

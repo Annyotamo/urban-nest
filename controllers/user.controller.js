@@ -31,7 +31,6 @@ export async function getUserBookings(req, res) {
             };
         })
     );
-    console.log(listings);
     return res.json(listings);
 }
 

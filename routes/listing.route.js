@@ -40,7 +40,6 @@ router.get("/:lid", async (req, res) => {
         }
 
         const isFavourite = favourites.includes(listing._id.toString());
-        console.log(listing);
 
         return res.status(200).json({ ...listing.toObject(), favourite: isFavourite });
     } catch (error) {
