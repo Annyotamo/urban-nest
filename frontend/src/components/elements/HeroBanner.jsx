@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import logo from "../../assets/urbanNestLogo.png";
 
-const HeroBanner = () => {
+const HeroBanner = ({ action }) => {
     return (
-        <div className="relative h-[70vh] flex flex-col items-center justify-center text-[#5F4B32] bg-gradient-to-r from-[#FAEDCD] via-[#E9EDC9] to-[#D4A373] px-6 shadow-lg">
+        <div className="flex flex-col items-center justify-center text-[#5F4B32] bg-gradient-to-r from-[#FAEDCD] via-[#E9EDC9] to-[#D4A373] p-6 py-20 sm:py-4 shadow-lg">
 
             <div className="mb-4">
                 <img src={logo} alt="UrbanNest Logo" className="w-28 md:w-36" />
@@ -22,12 +21,11 @@ const HeroBanner = () => {
             </p>
 
             {/* CTA Button */}
-            <Link to="/list">
-                <button className="bg-[#D4A373] text-white text-lg font-semibold px-6 py-3 mt-5 rounded-full shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-                    <FaHome className="inline-block mr-2 text-xl" />
-                    Rent Your Home
-                </button>
-            </Link>
+            <button className="bg-[#D4A373] text-white text-lg font-semibold px-6 py-3 mt-5 rounded-full shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                onClick={() => action(true)}>
+                <FaHome className="inline-block mr-2 text-xl" />
+                Rent Your Home
+            </button>
         </div>
     );
 };

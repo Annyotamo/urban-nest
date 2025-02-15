@@ -8,12 +8,12 @@ import useAuthStatus from '../../hooks/useAuthStatus.js';
 import useLogout from '../../hooks/useLogout.js';
 import LoadingOverlay from '../elements/LoadingOverlay.jsx';
 
-const MenuItems = () => {
+const MenuItems = ({ closeModal }) => {
     const dispatch = useDispatch();
     const [logout, setLogout] = useState(false);
 
     const { data: authStatus, isLoading, isError, isSuccess } = useAuthStatus();
-    const { mutate: logoutMutate, isError: logoutIsError } = useLogout();
+    const { mutate: logoutMutate, isError: logoutIsError } = useLogout(closeModal);
 
     if (isLoading) {
         return <LoadingOverlay />

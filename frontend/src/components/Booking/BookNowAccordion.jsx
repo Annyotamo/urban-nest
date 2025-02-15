@@ -1,34 +1,37 @@
-// BookNowAccordion.js
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaPlus } from 'react-icons/fa6';
+import { Formik, Form, FieldArray } from 'formik';
+import * as Yup from 'yup';
+import AccordionInput from './AccordionInput';
 
 const BookNowAccordion = ({ onSubmit, details }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [guests, setGuests] = useState([{ firstName: '', lastName: '', Country: '', age: '' }]);
 
     const toggleAccordion = () => setIsOpen(!isOpen);
 
-    const handleGuestChange = (index, field, value) => {
-        const newGuests = [...guests];
-        newGuests[index][field] = value;
-        setGuests(newGuests);
+    const initialValues = {
+        guests: [{ firstName: '', lastName: '', country: '', age: '' }],
     };
 
-    const addGuest = () => {
-        setGuests([...guests, { firstName: '', lastName: '', Country: '', age: '' }]);
-    };
-
-    const handleBooking = () => {
-        onSubmit(guests);
-    };
+    const validationSchema = Yup.object({
+        guests: Yup.array().of(
+            Yup.object({
+                firstName: Yup.string().required('First Name is required'),
+                lastName: Yup.string().required('Last Name is required'),
+                country: Yup.string().required('Country is required'),
+                age: Yup.number().required('Age is required').positive('Age must be positive').integer('Age must be an integer'),
+            })
+        ),
+    });
 
     return (
-        <div className="bg-brown-900 text-beige-50 p-6 rounded-lg shadow-md mb-8">
+        <div className="bg-white text-gray-900 p-6 rounded-lg shadow-md mb-8">
             <h2 className="text-2xl font-semibold mb-4">
-                ${details?.price} <span className="text-sm">/ night</span> {/* Optional chaining */}
+                ${details?.price} <span className="text-sm">/ night</span>
             </h2>
             <button
-                className="w-full bg-beige-50 text-brown-900 py-3 px-4 rounded-lg font-semibold hover:bg-beige-200 transition-all duration-300"
+                className="w-full bg-gray-900 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition-all duration-300"
                 onClick={toggleAccordion}
             >
                 {isOpen ? 'Close Booking' : 'Book Now'}
@@ -39,59 +42,78 @@ const BookNowAccordion = ({ onSubmit, details }) => {
                 transition={{ duration: 0.5, ease: 'easeInOut' }}
                 className="overflow-hidden"
             >
-
                 <div className="mt-4">
                     <h3 className="text-lg font-semibold">Guest Information</h3>
-                    {guests.map((guest, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4 }}
-                            className="mt-2 p-4 border rounded-lg bg-brown-800"
-                        >
-                            <input
-                                type="text"
-                                placeholder="First Name"
-                                value={guest.firstName}
-                                onChange={(e) => handleGuestChange(index, 'firstName', e.target.value)}
-                                className="w-full p-2 mb-2 rounded-lg border bg-brown-700 text-beige-50"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Last Name"
-                                value={guest.lastName}
-                                onChange={(e) => handleGuestChange(index, 'lastName', e.target.value)}
-                                className="w-full p-2 mb-2 rounded-lg border bg-brown-700 text-beige-50"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Country"
-                                value={guest.Country}
-                                onChange={(e) => handleGuestChange(index, 'Country', e.target.value)}
-                                className="w-full p-2 mb-2 rounded-lg border bg-brown-700 text-beige-50"
-                            />
-                            <input
-                                type="number"
-                                placeholder="Age"
-                                value={guest.age}
-                                onChange={(e) => handleGuestChange(index, 'age', e.target.value)}
-                                className="w-full p-2 rounded-lg border bg-brown-700 text-beige-50"
-                            />
-                        </motion.div>
-                    ))}
-                    <button
-                        className="mt-2 bg-beige-50 text-brown-900 py-2 px-4 rounded-lg font-semibold hover:bg-beige-200 transition-all duration-300"
-                        onClick={addGuest}
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={(values) => {
+                            onSubmit(values.guests);
+                        }}
                     >
-                        Add Guest
-                    </button>
-                    <button
-                        className="mt-4 w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300"
-                        onClick={handleBooking}
-                    >
-                        Confirm Booking
-                    </button>
+                        {({ values }) => (
+                            <Form>
+                                <FieldArray name="guests">
+                                    {({ push }) => (
+                                        <div>
+                                            {values.guests.map((guest, index) => (
+                                                <motion.div
+                                                    key={index}
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.4 }}
+                                                    className="mt-2"
+                                                >
+                                                    <div className="flex flex-col sm:flex-row gap-4 w-full">
+                                                        <AccordionInput
+                                                            label="First Name"
+                                                            name={`guests[${index}].firstName`}
+                                                            type="text"
+                                                            placeholder="First Name"
+                                                        />
+                                                        <AccordionInput
+                                                            label="Last Name"
+                                                            name={`guests[${index}].lastName`}
+                                                            type="text"
+                                                            placeholder="Last Name"
+                                                        />
+                                                    </div>
+                                                    <div className="flex flex-col sm:flex-row gap-4 w-full">
+                                                        <AccordionInput
+                                                            label="Country"
+                                                            name={`guests[${index}].country`}
+                                                            type="text"
+                                                            placeholder="Country"
+                                                        />
+                                                        <AccordionInput
+                                                            label="Age"
+                                                            name={`guests[${index}].age`}
+                                                            type="number"
+                                                            placeholder="Age"
+                                                        />
+                                                    </div>
+                                                </motion.div>
+                                            ))}
+                                            <button
+                                                type="button"
+                                                className="mt-6 text-gray-900 rounded-lg font-semibold transition-all duration-300 flex flex-row items-center justify-center text-2xl border p-2 shadow-md hover:shadow-xl"
+                                                onClick={() => push({ firstName: '', lastName: '', country: '', age: '' })}
+                                            >
+                                                <FaPlus size={25} className="mr-1" />
+                                                Add Guest
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                className="mt-4 w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300"
+                                            >
+                                                Confirm Booking
+                                            </button>
+                                        </div>
+                                    )}
+                                </FieldArray>
+                            </Form>
+                        )}
+                    </Formik>
                 </div>
             </motion.div>
         </div>

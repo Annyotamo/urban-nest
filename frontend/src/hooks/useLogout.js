@@ -3,7 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../redux/slices/auth/auth.slice";
 
-const useLogout = () => {
+const useLogout = (closeModal) => {
     const dispatch = useDispatch();
 
     return useMutation({
@@ -12,6 +12,7 @@ const useLogout = () => {
             await axios.post("http://localhost:8080/api/auth/logout", {}, { withCredentials: true }),
         onSuccess: () => {
             dispatch(setAuth(false));
+            closeModal(!true);
         },
     });
 };

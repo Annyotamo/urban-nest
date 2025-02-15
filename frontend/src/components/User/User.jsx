@@ -3,9 +3,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaCircleUser } from "react-icons/fa6";
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
-import LoginPromtOverlay from '../elements/LoginPromtOverlay';
 const User = () => {
     const [bubbles, setBubbles] = useState([]);
 
@@ -21,18 +18,6 @@ const User = () => {
         };
         setBubbles(createBubbles());
     }, []);
-
-    const { data, isLoading, isSuccess } = useQuery({
-        queryKey: ["profile-auth"],
-        queryFn: async () => {
-            const { data } = await axios.get("http://localhost:8080/api/auth/status", { withCredentials: true })
-            return data;
-        }
-    })
-
-    if (isSuccess) {
-        if (!data.isAuthenticated) return <LoginPromtOverlay message="See your profile" />
-    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg md:p-0 p-8 z-[10000]">
