@@ -190,6 +190,121 @@ urban-nest/Frontend
     </tbody>
 </table>
 
+<h2>Database and Collections</h2>
+
+<p>The application uses MongoDB as its database provider with Mongoose as the ODM (Object Data Modeling) library. The database is named <b>"urban-nest"</b> and includes the following collections:</p>
+
+<ul>
+    <li><b>sessions:</b> Used for session storage.</li>
+    <li><b>users:</b> Stores user information.</li>
+    <li><b>bookings:</b> Stores booking information.</li>
+    <li><b>listings:</b> Stores property listings.</li>
+</ul>
+
+<h3>User Model</h3>
+
+```javascript
+const userSchema = new Schema(
+    {
+        firstName: {
+            type: String,
+            required: true,
+        },
+        lastName: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
+        bookings: {
+            type: [Schema.Types.ObjectId],
+            ref: "Booking",
+        },
+        favourites: {
+            type: [Schema.Types.ObjectId],
+            ref: "Listing",
+        },
+    },
+    { timestamps: true }
+);
+```
+
+<h3>Listing Model</h3>
+
+```javascript
+const listingSchema = new Schema(
+    {
+        owner: {
+            oid: { type: Schema.Types.ObjectId, ref: "User", required: true },
+            name: { type: String, required: true },
+        },
+        details: {
+            title: { type: String, required: true },
+            price: { type: Number, required: true },
+            description: { type: String },
+        },
+        location: {
+            country: { type: String },
+            latLng: { type: [Number], required: true },
+        },
+        category: [{ type: String }],
+        facilities: {
+            rooms: { type: Number, required: true },
+            baths: { type: Number, required: true },
+            pets: { type: Boolean, default: false },
+            more: [{ type: String }],
+        },
+        images: [],
+    },
+    { timestamps: true }
+);
+```
+
+<h3>Booking Model</h3>
+
+```javascript
+const bookingSchema = new Schema(
+    {
+        user: {
+            name: { required: true, type: String },
+            uid: { type: Schema.Types.ObjectId, ref: "User", required: true },
+        },
+        listing: { type: Schema.Types.ObjectId, ref: "Listing", required: true },
+        date: {
+            start: { type: Schema.Types.Date, required: true },
+            end: { type: Schema.Types.Date, required: true },
+        },
+        guests: [
+            {
+                firstName: {
+                    type: String,
+                    required: true,
+                },
+                lastName: {
+                    type: String,
+                    required: true,
+                },
+                Country: {
+                    type: String,
+                    required: true,
+                },
+                age: {
+                    type: String,
+                    required: true,
+                },
+            },
+        ],
+    },
+    { timestamps: true }
+);
+```
+
 <h2>Where It's Used and Why</h2>
 
 <p>This project is a backend API designed to be used by a frontend application (e.g., a website or mobile app).  It provides the data and logic for managing property listings. The chosen technologies are common for building web applications due to their flexibility, scalability, and large community support. Node.js allows for efficient handling of concurrent requests, Express.js simplifies routing and middleware management, and MongoDB provides a flexible schema for storing diverse data.</p>
@@ -212,7 +327,3 @@ urban-nest/Frontend
         <text x="275" y="275" fill="black">Database</text>
     </svg>
 </div>
-
-<h2>Database and Collections</h2>
-
-<p>The application uses MongoDB as its database.  The primary collection is <b>"properties"</b>, which stores information about each property listing.  Each document in this collection represents a single property and includes fields like address, price, bedrooms, bathrooms, description, etc.</p>
