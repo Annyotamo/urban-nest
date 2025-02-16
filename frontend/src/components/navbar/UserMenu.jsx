@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from '../Avatar';
 import MenuItems from './MenuItems';
 import { Link } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
