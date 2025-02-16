@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { FaHome } from "react-icons/fa";
 import { GoAlert } from "react-icons/go";
 import { MdOutlineCancel } from "react-icons/md";
@@ -19,7 +20,7 @@ const ErrorOverlay = ({ message = "Something went wrong!", action = "Retry", act
     if (close) CloseComponent = (<button className="absolute top-1 right-1 text-red-500" onClick={closeFunc}><MdOutlineCancel size={20} /></button>)
 
     return (
-        <div className="fixed inset-0 flex z-[10000] items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg  md:p-0 p-8">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg z-[50] md:p-0 p-8">
             <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}

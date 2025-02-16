@@ -51,7 +51,7 @@ const Booking = () => {
             {bookingError && (
                 bookingError.status === 401 ?
                     <LoginPromptOverlay close={true} closeFunc={() => setBookingError(null)} message="Login to book a property" /> :
-                    <ErrorOverlay close={true} message="Select all booking details" closeFunc={() => setBookingError(null)} actionFunc={() => setBookingError(null)} />
+                    <ErrorOverlay close={true} message="Select all booking details" closeFunc={() => setBookingError(null)} actionFunc={() => queryClient.invalidateQueries({ queryKey: ["create-booking"] })} />
             )}
             {favError && (
                 favError.status === 401 ?

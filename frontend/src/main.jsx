@@ -13,7 +13,6 @@ import Booking from './components/Booking/Booking.jsx'
 import UserBookings from './components/User/UserBookings.jsx'
 import UserFavourites from './components/User/UserFavourites.jsx'
 import User from './components/User/User.jsx'
-import ErrorOverlay from './components/elements/ErrorOverlay.jsx'
 
 const router = createBrowserRouter([
     {
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
     {
         path: "/test",
         element: <Test />
-    },
-    {
-        path: "*",
-        element: <ErrorOverlay message='404: page not found' action="Return" />
     }
 ])
 
