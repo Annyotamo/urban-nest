@@ -4,12 +4,12 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaBed, FaBath } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import ImageCarousal from "../components/elements/ImageCarousal";
-import LoadingOverlay from "../components/elements/LoadingOverlay";
-import LoginPromtOverlay from "../components/elements/LoginPromtOverlay"
-import ErrorOverlay from "../components/elements/ErrorOverlay";
-import HeroBanner from "../components/elements/HeroBanner";
-import { queryClient } from "../main";
+import ImageCarousal from "../elements/ImageCarousal";
+import LoadingOverlay from "../elements/LoadingOverlay";
+import LoginPromtOverlay from "../elements/LoginPromtOverlay"
+import ErrorOverlay from "../elements/ErrorOverlay";
+import HeroBanner from "../elements/HeroBanner";
+import { queryClient } from "../../main";
 
 const UserFavourites = () => {
 

@@ -1,6 +1,5 @@
 import './index.css'
 import App from './App.jsx'
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import UserLogin from './components/login-register/UserLogin.jsx'
@@ -11,8 +10,8 @@ import { Provider } from "react-redux";
 import { store } from './redux/store.redux.js'
 import Test from './Test.jsx'
 import Booking from './components/Booking/Booking.jsx'
-import UserBookings from './User/UserBookings.jsx'
-import UserFavourites from './User/UserFavourites.jsx'
+import UserBookings from './components/User/UserBookings.jsx'
+import UserFavourites from './components/User/UserFavourites.jsx'
 import User from './components/User/User.jsx'
 
 const router = createBrowserRouter([
