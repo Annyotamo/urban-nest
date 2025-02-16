@@ -305,25 +305,45 @@ const bookingSchema = new Schema(
 );
 ```
 
-<h2>Where It's Used and Why</h2>
-
-<p>This project is a backend API designed to be used by a frontend application (e.g., a website or mobile app).  It provides the data and logic for managing property listings. The chosen technologies are common for building web applications due to their flexibility, scalability, and large community support. Node.js allows for efficient handling of concurrent requests, Express.js simplifies routing and middleware management, and MongoDB provides a flexible schema for storing diverse data.</p>
-
 <h2>Application Workflow</h2>
 
-<p>The application follows a typical client-server architecture.  A client (frontend) makes requests to the backend API. The backend processes these requests, interacts with the database, and sends responses back to the client.  This project focuses on the backend API development.</p>
+<p>This section provides a detailed explanation of the application's workflow, from user registration to booking a property.</p>
 
-<div class="chart">
-    <svg width="400" height="300">
-        <rect x="50" y="50" width="100" height="50" fill="lightblue" stroke="black" />
-        <text x="75" y="75" fill="black">Client</text>
-        <path d="M100 100 L200 100" stroke="black" stroke-width="2"/>
-        <polygon points="200,90 210,100 200,110" fill="black"/>
-        <rect x="250" y="50" width="100" height="50" fill="lightgreen" stroke="black" />
-        <text x="275" y="75" fill="black">Server (API)</text>
-        <path d="M300 100 L300 200" stroke="black" stroke-width="2"/>
-        <polygon points="290,200 300,210 310,200" fill="black"/>
-        <rect x="250" y="250" width="100" height="50" fill="lightcoral" stroke="black" />
-        <text x="275" y="275" fill="black">Database</text>
-    </svg>
-</div>
+<h3>User Registration and Authentication</h3>
+<ol>
+    <li><b>Register:</b> A new user registers by providing their first name, last name, email, and password via the <code>/api/auth/register</code> endpoint. The password is hashed using <b>bcryptjs</b> before being stored in the database.</li>
+    <li><b>Login:</b> The user logs in by providing their email and password to the <code>/api/auth/login</code> endpoint. The credentials are verified, and a session is created using <b>express-session</b> and stored in the <b>sessions</b> collection.</li>
+    <li><b>Logout:</b> The user can log out by hitting the <code>/api/auth/logout</code> endpoint, which destroys the session.</li>
+    <li><b>Authentication Status:</b> The user's authentication status can be checked via the <code>/api/auth/status</code> endpoint.</li>
+</ol>
+
+<h3>Listing Management</h3>
+<ol>
+    <li><b>Retrieve Listings:</b> All property listings can be retrieved using the <code>/api/listing/all</code> endpoint.</li>
+    <li><b>Create Listing:</b> A new listing can be created in two steps:
+        <ul>
+            <li>Submit listing data via the <code>/api/listing/create/data</code> endpoint.</li>
+            <li>Upload images for the listing via the <code>/api/listing/create/images</code> endpoint.</li>
+        </ul>
+    </li>
+    <li><b>Retrieve Specific Listing:</b> A specific listing can be retrieved by its ID using the <code>/api/listing/:lid</code> endpoint.</li>
+</ol>
+
+<h3>Booking Management</h3>
+<ol>
+    <li><b>Create Booking:</b> A new booking can be created by providing the necessary details via the <code>/api/booking/create</code> endpoint.</li>
+    <li><b>Retrieve Bookings:</b> All bookings can be retrieved using the <code>/api/booking/all</code> endpoint.</li>
+    <li><b>Retrieve Specific Booking:</b> A specific booking can be retrieved by its ID using the <code>/api/booking/:bid</code> endpoint.</li>
+    <li><b>User Bookings:</b> The logged-in user's bookings can be retrieved using the <code>/api/user/bookings</code> endpoint.</li>
+</ol>
+
+<h3>User Favourites</h3>
+<ol>
+    <li><b>Add to Favourites:</b> A listing can be added to the user's favourites via the <code>/api/user/favourites</code> endpoint.</li>
+    <li><b>Retrieve Favourites:</b> All favourited listings for the logged-in user can be retrieved using the <code>/api/user/favourited/all</code> endpoint.</li>
+</ol>
+
+<h3>User Profile</h3>
+<ol>
+    <li><b>Retrieve Profile:</b> The profile of the logged-in user can be retrieved using the <code>/api/user/profile</code> endpoint.</li>
+</ol>
