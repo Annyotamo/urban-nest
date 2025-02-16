@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import LoadingOverlay from '../elements/LoadingOverlay';
 import { motion } from 'framer-motion';
 import Navbar from '../navbar/Navbar';
@@ -7,7 +9,7 @@ import ImageCarousal from './ImageCarousal';
 import DatePicker from './DatePicker';
 import Map from "../rent/Location/Map";
 import Details from './Details';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import BookingHeader from './BookingHeader';
 import LoginPromptOverlay from "../elements/LoginPromtOverlay";
 import BookingCategories from './BookingCategories';
