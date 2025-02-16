@@ -6,7 +6,7 @@ const Logo = () => {
     return (
         <div>
             <Link to="/">
-                <img src={logo} alt="logo" className="hidden md:block cursor-pointer" height="200" width="200" />
+                <img src={logo} alt="logo" className="md:block cursor-pointer" height="200" width="200" />
             </Link>
         </div>
     )

@@ -32,7 +32,7 @@ const UserMenu = () => {
         <div className="relative" ref={menuRef}>
             <div className="flex flex-row items-center gap-3">
                 <Link to="/list">
-                    <div className="hidden md:flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-full transition duration-300 cursor-pointer bg-[#D4A373] text-white shadow-lg hover:bg-[#ad7a4b] hover:shadow-xl transform hover:scale-105">
+                    <div className="hidden md:flex items-center gap-2 px-6 py-3 text-lg font-semibold md:rounded-full transition duration-300 cursor-pointer bg-[#D4A373] text-white shadow-lg hover:bg-[#ad7a4b] hover:shadow-xl transform hover:scale-105">
                         <FaHome />
                         Rent Your Home
                     </div>

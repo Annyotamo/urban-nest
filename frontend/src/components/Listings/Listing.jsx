@@ -22,7 +22,7 @@ const Listing = ({ listing }) => {
             <div className="p-3 sm:p-4 flex flex-col flex-grow">
                 {/* Title & Location */}
                 <div className="flex justify-between items-center mb-1 sm:mb-2">
-                    <h3 className="text-base sm:text-lg font-semibold text-[#5C3D2E] truncate min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold text-[#5C3D2E] truncate min-w-0 font-poppins">
                         {listing.details.title}
                     </h3>
                     <div className="flex items-center text-xs text-gray-600">
@@ -78,7 +78,7 @@ const Listing = ({ listing }) => {
                 {/* View Details Button (Always at Bottom) */}
                 <div className="mt-auto">
                     <Link to={`/listing/${listing._id}`}>
-                        <button className="mt-3 sm:mt-4 w-full bg-[#D4A373] text-white py-2 rounded-md text-sm hover:bg-[#6F3D2E] transition-colors duration-300">
+                        <button className="mt-3 sm:mt-4 w-full bg-[#D4A373] text-white py-2 rounded-md text-sm hover:bg-[#6F3D2E] transition-colors duration-300 font-poppins">
                             View Details
                         </button>
                     </Link>

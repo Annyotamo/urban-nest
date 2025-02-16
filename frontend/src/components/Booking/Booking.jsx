@@ -36,7 +36,7 @@ const Booking = () => {
 
     if (isBookingLoading || isListingLoading || isFavLoading) return <LoadingOverlay isLoading={isListingLoading} message="Fetching data" />;
 
-    const { owner, details, location, facilities, images, category = [] } = data || {}; // Handle potential null data
+    const { owner, details, location, facilities, images, category = [] } = data || {};
 
     return (
         <motion.div

@@ -32,6 +32,7 @@ const MenuItems = ({ closeModal }) => {
 
     return (
         <div>
+            <MenuItem label="Rent your home" endpoint="/list" styles="visible lg:hidden" />
             <MenuItem label='Profile' endpoint="/user" />
             <MenuItem label='Your bookings' endpoint="/user/bookings" />
             <MenuItem label='Favourites' endpoint="/user/favourites" />

@@ -3,6 +3,11 @@ export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            fontFamily: {
+                poppins: ["Poppins", "sans-serif"],
+                syne: ["Syne", "sans-serif"],
+                eczar: ["Eczar", "serif"],
+            },
             colors: {
                 beige: {
                     50: "#faf6f0",

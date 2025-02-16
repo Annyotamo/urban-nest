@@ -57,7 +57,6 @@ urban-nest/Frontend
     <li><b>React Query:</b> Manages server state in React applications.</li>
     <li><b>Axios:</b> Promise-based HTTP client for making requests to the backend.</li>
     <li><b>Formik:</b> Helps with form state management and validation.</li>
-    <li><b>Leaflet:</b> Open-source JavaScript library for interactive maps.</li>
     <li><b>Tailwind CSS:</b> Utility-first CSS framework for styling.</li>
 </ul>
 

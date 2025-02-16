@@ -6,14 +6,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { motion } from "framer-motion";
 import { FaMapPin } from "react-icons/fa";
-import LoadingOverlay from "../components/elements/LoadingOverlay"
-import ImageCarousal from "../components/elements/ImageCarousal";
-import Navbar from "../components/navbar/Navbar"
-import LoginPromptOverlay from "../components/elements/LoginPromtOverlay"
-import HeroBanner from "../components/elements/HeroBanner";
-import ErrorOverlay from "../components/elements/ErrorOverlay";
-import { queryClient } from "../main"
-import EmptyStateComponent from "../components/elements/EmptyStateComponent";
+import LoadingOverlay from "../elements/LoadingOverlay"
+import ImageCarousal from "../elements/ImageCarousal";
+import LoginPromptOverlay from "../elements/LoginPromtOverlay"
+import HeroBanner from "../elements/HeroBanner";
+import EmptyStateComponent from "../elements/EmptyStateComponent";
 
 const UserBookings = () => {
 

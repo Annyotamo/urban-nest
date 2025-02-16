@@ -1,6 +1,7 @@
 import React from "react";
 import { FaHome } from "react-icons/fa";
 import logo from "../../assets/urbanNestLogo.png";
+import { Link } from "react-router-dom";
 
 const HeroBanner = ({ action, collapse = false }) => {
     return (
@@ -24,7 +25,9 @@ const HeroBanner = ({ action, collapse = false }) => {
             <button className="bg-[#D4A373] text-white text-lg font-semibold px-6 py-3 mt-5 rounded-full shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                 onClick={() => action(true)}>
                 <FaHome className="inline-block mr-2 text-xl" />
-                Rent Your Home
+                <Link to="/list">
+                    Rent Your Home
+                </Link>
             </button>
         </div>
     );
