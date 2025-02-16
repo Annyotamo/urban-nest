@@ -101,6 +101,95 @@ urban-nest/Frontend
     <li><b>swiper:</b> Modern mobile touch slider.</li>
 </ul>
 
+<h2>Endpoints</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Endpoint</th>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>/api/auth/register</td>
+            <td>POST</td>
+            <td>Register a new user.</td>
+        </tr>
+        <tr>
+            <td>/api/auth/login</td>
+            <td>POST</td>
+            <td>Login a user.</td>
+        </tr>
+        <tr>
+            <td>/api/auth/logout</td>
+            <td>POST</td>
+            <td>Logout a user.</td>
+        </tr>
+        <tr>
+            <td>/api/auth/status</td>
+            <td>GET</td>
+            <td>Check authentication status.</td>
+        </tr>
+        <tr>
+            <td>/api/listing/all</td>
+            <td>GET</td>
+            <td>Retrieve all listings.</td>
+        </tr>
+        <tr>
+            <td>/api/listing/create/data</td>
+            <td>POST</td>
+            <td>Create a new listing with data.</td>
+        </tr>
+        <tr>
+            <td>/api/listing/create/images</td>
+            <td>POST</td>
+            <td>Upload images for a listing.</td>
+        </tr>
+        <tr>
+            <td>/api/listing/:lid</td>
+            <td>GET</td>
+            <td>Retrieve a specific listing by ID.</td>
+        </tr>
+        <tr>
+            <td>/api/booking/create</td>
+            <td>POST</td>
+            <td>Create a new booking.</td>
+        </tr>
+        <tr>
+            <td>/api/booking/all</td>
+            <td>GET</td>
+            <td>Retrieve all bookings.</td>
+        </tr>
+        <tr>
+            <td>/api/booking/:bid</td>
+            <td>GET</td>
+            <td>Retrieve a specific booking by ID.</td>
+        </tr>
+        <tr>
+            <td>/api/user/bookings</td>
+            <td>GET</td>
+            <td>Retrieve bookings for the logged-in user.</td>
+        </tr>
+        <tr>
+            <td>/api/user/favourites</td>
+            <td>POST</td>
+            <td>Add a listing to favourites.</td>
+        </tr>
+        <tr>
+            <td>/api/user/favourited/all</td>
+            <td>GET</td>
+            <td>Retrieve all favourited listings for the logged-in user.</td>
+        </tr>
+        <tr>
+            <td>/api/user/profile</td>
+            <td>GET</td>
+            <td>Retrieve the profile of the logged-in user.</td>
+        </tr>
+    </tbody>
+</table>
+
 <h2>Where It's Used and Why</h2>
 
 <p>This project is a backend API designed to be used by a frontend application (e.g., a website or mobile app).  It provides the data and logic for managing property listings. The chosen technologies are common for building web applications due to their flexibility, scalability, and large community support. Node.js allows for efficient handling of concurrent requests, Express.js simplifies routing and middleware management, and MongoDB provides a flexible schema for storing diverse data.</p>
@@ -123,45 +212,6 @@ urban-nest/Frontend
         <text x="275" y="275" fill="black">Database</text>
     </svg>
 </div>
-
-<h2>Endpoints</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>Endpoint</th>
-            <th>Method</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>/properties</td>
-            <td>GET</td>
-            <td>Retrieves all property listings.</td>
-        </tr>
-        <tr>
-            <td>/properties/:id</td>
-            <td>GET</td>
-            <td>Retrieves a specific property listing by ID.</td>
-        </tr>
-        <tr>
-            <td>/properties</td>
-            <td>POST</td>
-            <td>Creates a new property listing.</td>
-        </tr>
-        <tr>
-            <td>/properties/:id</td>
-            <td>PUT</td>
-            <td>Updates a specific property listing.</td>
-        </tr>
-        <tr>
-            <td>/properties/:id</td>
-            <td>DELETE</td>
-            <td>Deletes a specific property listing.</td>
-        </tr>
-    </tbody>
-</table>
 
 <h2>Database and Collections</h2>
 
