@@ -2,9 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url"; // Import the utility function
-import { dirname } from "path";
 
 import loginRegisterRouter from "./routes/loginReg.route.js";
 import listingRouter from "./routes/listing.route.js";
@@ -72,18 +69,6 @@ server.use("/api/user", userRouter);
 server.use("/api/test", (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
     res.json({ message: "Success!", user: req.user });
-});
-
-const __filename = fileURLToPath(import.meta.url); // Get the current file's path
-const __dirname = dirname(__filename);
-// serving my react app
-// Serve static files from the React app (adjust path)
-server.use(express.static(path.join(__dirname, "frontend", "dist"))); // <--- Key change
-
-// The "catchall" handler to send back index.html on all unmatched requests (adjust path)
-server.get("/*", (req, res) => {
-    // <--- Important for React Router
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html")); // <--- Correct path
 });
 
 server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
