@@ -1,10 +1,13 @@
-<h1>Urban Nest Project</h1>
+<h1>Urban Nest Project v1.0.0</h1>
 
 <p>This project is a practice application for learning and exploring backend development using Node.js, Express, and MongoDB. It simulates a simplified real estate listing platform.</p>
 
 <h2>Directory Structure</h2>
 
-<pre>
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <h3>Backend</h3>
+        <pre>
 urban-nest
 ├── config
 ├── controllers
@@ -14,14 +17,13 @@ urban-nest
 ├── middlewares
 ├── routes
 ├── strategy
-├── Frontend
 ├── package.json
 └── README.md
-</pre>
-
-<h2>Frontend Component Structure</h2>
-
-<pre>
+        </pre>
+    </div>
+    <div>
+        <h3>Frontend</h3>
+        <pre>
 urban-nest/Frontend
 ├── public
 ├── src
@@ -39,15 +41,24 @@ urban-nest/Frontend
 │   ├── main.jsx
 │   └── ...
 └── package.json
-</pre>
+        </pre>
+    </div>
+</div>
 
 <h2>Tech Stack</h2>
 
 <ul>
-    <li><b>Node.js:</b>  Backend runtime environment.</li>
+    <li><b>Node.js:</b> Backend runtime environment.</li>
     <li><b>Express.js:</b> Web framework for building APIs.</li>
     <li><b>MongoDB:</b> NoSQL database for storing data.</li>
     <li><b>Mongoose:</b> ODM (Object Data Modeling) library for interacting with MongoDB.</li>
+    <li><b>React:</b> JavaScript library for building user interfaces.</li>
+    <li><b>Redux Toolkit:</b> Simplifies Redux development with a set of tools and best practices.</li>
+    <li><b>React Query:</b> Manages server state in React applications.</li>
+    <li><b>Axios:</b> Promise-based HTTP client for making requests to the backend.</li>
+    <li><b>Formik:</b> Helps with form state management and validation.</li>
+    <li><b>Leaflet:</b> Open-source JavaScript library for interactive maps.</li>
+    <li><b>Tailwind CSS:</b> Utility-first CSS framework for styling.</li>
 </ul>
 
 <h2>Framework Used</h2>
