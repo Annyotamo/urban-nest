@@ -30,7 +30,8 @@ const RentSubmit = ({ toggle }) => {
 
     // Uploading all listing data
     async function listingDataUpload() {
-        return await axios.post("http://localhost:8080/api/listing/create/data", listingData, { withCredentials: true });
+        const endpoint = import.meta.env.VITE_API_ENDPOINT;
+        return await axios.post(`${endpoint}/api/listing/create/data`, listingData, { withCredentials: true });
     }
     // Uploading all images
     async function listingImageUpload(headers) {
@@ -42,8 +43,8 @@ const RentSubmit = ({ toggle }) => {
         images.forEach((image) => {
             formData.append("images", image);
         });
-
-        await axios.post("http://localhost:8080/api/listing/create/images", formData, { headers, withCredentials: true });
+        const endpoint = import.meta.env.VITE_API_ENDPOINT;
+        await axios.post(`${endpoint}/api/listing/create/images`, formData, { headers, withCredentials: true });
     }
 
     return (

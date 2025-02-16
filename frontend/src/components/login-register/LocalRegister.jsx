@@ -22,7 +22,10 @@ const LocalRegister = () => {
 
     const { mutateAsync } = useMutation({
         mutationKey: ["Register"],
-        mutationFn: async (values) => await axios.post('http://localhost:8080/api/auth/register', values),
+        mutationFn: async (values) => {
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            return await axios.post(`${endpoint}/api/auth/register`, values)
+        },
         onError: () => setError(true), onSuccess: () => setError(null)
     });
 

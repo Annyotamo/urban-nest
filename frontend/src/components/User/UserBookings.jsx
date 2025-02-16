@@ -16,8 +16,10 @@ const UserBookings = () => {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["User-Booking"],
-        queryFn: async () =>
-            (await axios.get("http://localhost:8080/api/user/bookings", { withCredentials: true })).data,
+        queryFn: async () => {
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            return (await axios.get(`${endpoint}/api/user/bookings`, { withCredentials: true })).data
+        },
         retry: false
     });
 

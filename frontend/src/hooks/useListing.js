@@ -8,7 +8,8 @@ const useListing = (lid) => {
     const { data, isLoading, error } = useQuery({
         queryKey: ["listing", lid],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:8080/api/listing/${lid}`, {
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            const response = await axios.get(`${endpoint}/api/listing/${lid}`, {
                 withCredentials: true,
             });
             return response.data;

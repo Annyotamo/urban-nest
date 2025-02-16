@@ -11,8 +11,9 @@ const useCreateBooking = (lid) => {
     const { mutateAsync: createBooking, isLoading } = useMutation({
         mutationKey: ["create-booking"],
         mutationFn: async (values) => {
-            await axios.post(
-                "http://localhost:8080/api/booking/create",
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            return await axios.post(
+                `${endpoint}/api/booking/create`,
                 {
                     date: values.date,
                     guests: values.guests,

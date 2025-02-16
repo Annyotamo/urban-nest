@@ -4,7 +4,10 @@ import axios from "axios";
 const useAuthStatus = () => {
     return useQuery({
         queryKey: ["Auth"],
-        queryFn: async () => await axios.get("http://localhost:8080/api/auth/status", { withCredentials: true }),
+        queryFn: async () => {
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            return await axios.get(`${endpoint}/api/auth/status`, { withCredentials: true });
+        },
         refetchOnMount: true,
         refetchOnReconnect: true,
     });

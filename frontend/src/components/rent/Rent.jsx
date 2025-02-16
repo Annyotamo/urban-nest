@@ -17,7 +17,8 @@ const RentPropertyAd = () => {
     const { data, isSuccess, isLoading } = useQuery({
         queryKey: ["auth"],
         queryFn: async () => {
-            const data = await axios.get("http://localhost:8080/api/auth/status", { withCredentials: true }); return data.data
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            const data = await axios.get(`${endpoint}/api/auth/status`, { withCredentials: true }); return data.data
         }
     })
 

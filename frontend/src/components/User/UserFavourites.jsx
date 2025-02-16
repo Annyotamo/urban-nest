@@ -15,8 +15,10 @@ const UserFavourites = () => {
 
     const { data: favourites = [], isLoading, isError, error } = useQuery({
         queryKey: ["Favourites"],
-        queryFn: async () =>
-            (await axios.get("http://localhost:8080/api/user/favourited/all", { withCredentials: true })).data,
+        queryFn: async () => {
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            return (await axios.get(`${endpoint}/api/user/favourited/all`, { withCredentials: true })).data
+        },
         retry: false,
     });
 

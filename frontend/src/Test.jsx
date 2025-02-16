@@ -10,7 +10,8 @@ const Test = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/test", { withCredentials: true });
+                const endpoint = import.meta.env.VITE_API_ENDPOINT;
+                const res = await axios.get(`${endpoint}/api/test`, { withCredentials: true });
                 if (res.status == 200) {
                     console.log(res.data);
                     setValue(res.data.message);

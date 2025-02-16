@@ -13,10 +13,13 @@ const DatePicker = ({ setDate, listingId }) => {
 
     const { data, isSuccess } = useQuery({
         queryKey: ["booking"],
-        queryFn: async () => await axios.get("http://localhost:8080/api/booking/all"),
+        queryFn: async () => {
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            const response = await axios.get(`${endpoint}/api/booking/all`);
+            return response;
+        },
         refetchOnMount: true,
     });
-
     useEffect(() => {
         if (startDate != null && endDate != null) {
             setDate({

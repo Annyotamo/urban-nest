@@ -5,12 +5,9 @@ const useGetListings = () => {
     return useQuery({
         queryKey: ["listings"],
         queryFn: async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/api/listing/all");
-                return response.data;
-            } catch (error) {
-                throw error;
-            }
+            const endpoint = import.meta.env.VITE_API_ENDPOINT;
+            const response = await axios.get(`${endpoint}/api/listing/all`);
+            return response.data;
         },
         retry: false,
     });
