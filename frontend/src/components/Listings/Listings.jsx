@@ -1,6 +1,5 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import useGetListings from "../../hooks/useGetListings";
 import Listing from "./Listing";
 import ErrorComponent from "../elements/ErrorComponent";
 import LoadingOverlay from "../elements/LoadingOverlay";
@@ -14,18 +13,7 @@ const Listings = () => {
         data: listingData = [],
         isLoading,
         isError,
-    } = useQuery({
-        queryKey: ["listings"],
-        queryFn: async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/api/listing/all");
-                return response.data;
-            } catch (error) {
-                throw error;
-            }
-        },
-        retry: false,
-    });
+    } = useGetListings();
 
     const filterSearch = (listing) =>
         listing.details.title.toLowerCase().includes(search.toLowerCase()) ||
