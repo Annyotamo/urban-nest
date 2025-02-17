@@ -20,12 +20,13 @@ const MenuItems = ({ closeModal }) => {
     }
 
     if (isError || logoutIsError) {
-        return <ErrorOverlay home={true} />; // More specific message
+        return <ErrorOverlay home={true} />
     }
 
     if (logout) return <ErrorOverlay close={true} closeFunc={() => setLogout(false)} action="Logout" actionFunc={() => { logoutMutate(); setLogout(false); }} message="Are you sure?" />;
 
     if (isSuccess && authStatus && authStatus.data) {
+        console.log(authStatus)
         dispatch(setAuth(authStatus.data.isAuthenticated));
     }
 

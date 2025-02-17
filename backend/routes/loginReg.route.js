@@ -12,7 +12,10 @@ router.post(
     passport.authenticate("local", {
         failureMessage: true,
     }),
-    (req, res) => res.json({ message: "Login successful", user: req.session }),
+    (req, res) => {
+        console.log("Login successful");
+        return res.json({ message: "Login successful", user: req.session });
+    },
     (err, req, res, next) => {
         console.error("Authentication error:", err);
         res.status(401).json({ message: err.message || "Authentication failed" });
@@ -39,9 +42,10 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/status", async (req, res) => {
+    console.log(req.user);
     if (req.user) {
         const user = await User.findById(req.user.uid);
-        res.json({
+        return res.json({
             isAuthenticated: true,
             user: {
                 uid: user._id,
@@ -51,7 +55,7 @@ router.get("/status", async (req, res) => {
             },
         });
     } else {
-        res.json({ isAuthenticated: false });
+        return res.json({ isAuthenticated: false });
     }
 });
 

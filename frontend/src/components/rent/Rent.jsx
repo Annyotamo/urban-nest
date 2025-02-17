@@ -7,33 +7,26 @@ import { reset } from '../../redux/slices/give-rent/giveRent.slice';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import LoginPromptOverlay from "../elements/LoginPromtOverlay"
+import useAuthStatus from '../../hooks/useAuthStatus';
+import LoadingOverlay from '../elements/LoadingOverlay';
 
 const RentPropertyAd = () => {
 
     const [toggle, setToggle] = useState(false);
-    const [isAuth, setAuth] = useState(false);
     const dispatch = useDispatch();
 
-    const { data, isSuccess, isLoading } = useQuery({
-        queryKey: ["auth"],
-        queryFn: async () => {
-            const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            const data = await axios.get(`${endpoint}/api/auth/status`, { withCredentials: true }); return data.data
-        }
-    })
+    const { data, isLoading } = useAuthStatus();
 
     useEffect(() => {
         dispatch(reset());
     }, [toggle, data])
 
-    if (isSuccess) {
-        if (data.isAuthenticated === false) return <LoginPromptOverlay />
-    }
+    if (isLoading) return <LoadingOverlay />
 
     return (
         <>
             <RentAd toggle={setToggle} />
-            {toggle && <RentOptions toggle={setToggle} />}
+            {toggle && (data.data.isAuthenticated === true ? <RentOptions toggle={setToggle} /> : <LoginPromptOverlay close={true} closeFunc={() => setToggle(false)} />)}
             <Toaster position='top-center' />
         </>
     )
