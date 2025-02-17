@@ -24,16 +24,7 @@ const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https
 app.use(
     cors({
         credentials: true,
-        origin: (origin, callback) => {
-            if (!origin) {
-                // Handle requests without Origin header
-                callback(null, true); // Allow them (but be cautious in production)
-            } else if (allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
+        origin: "https://urbn-nest.vercel.app",
     })
 );
 
