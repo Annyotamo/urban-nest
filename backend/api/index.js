@@ -19,12 +19,16 @@ const app = express();
 
 await connectDB();
 
-const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https://urbn-nest.vercel.app/"];
+const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https://urbn-nest.vercel.app"];
+
 app.use(
     cors({
         credentials: true,
         origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
+            if (!origin) {
+                // Handle requests without Origin header
+                callback(null, true); // Allow them (but be cautious in production)
+            } else if (allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
                 callback(new Error("Not allowed by CORS"));
