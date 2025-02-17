@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import passport from "passport";
+import cookieParser from "cookie-parser";
 
 import connectDB from "../config/db.js";
 import loginRegisterRouter from "../routes/loginReg.route.js";
@@ -32,14 +33,18 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// parsing all cookies
+app.use(cookieParser());
+
 // session middleware
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
-            secure: false,
+            secure: true,
             httpOnly: true,
             maxAge: 60 * 1000 * 60 * 24,
+            sameSite: "none",
         },
         resave: false,
         saveUninitialized: false,

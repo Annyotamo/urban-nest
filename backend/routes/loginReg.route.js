@@ -13,7 +13,7 @@ router.post(
         failureMessage: true,
     }),
     (req, res) => {
-        console.log("Login successful");
+        console.log("Login successful\n" + req.session);
         return res.json({ message: "Login successful", user: req.session });
     },
     (err, req, res, next) => {
