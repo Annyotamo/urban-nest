@@ -39,7 +39,7 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/status", async (req, res) => {
-    if (req.isAuthenticated()) {
+    if (req.user) {
         const user = await User.findById(req.user.uid);
         res.json({
             isAuthenticated: true,

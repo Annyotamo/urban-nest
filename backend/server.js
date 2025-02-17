@@ -25,13 +25,7 @@ const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https
 server.use(
     cors({
         credentials: true,
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
+        origin: allowedOrigins,
     })
 );
 
