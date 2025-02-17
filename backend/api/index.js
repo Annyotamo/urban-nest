@@ -24,7 +24,7 @@ const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https
 app.use(
     cors({
         credentials: true,
-        origin: "https://urbn-nest.vercel.app",
+        origin: ["https://urbn-nest.vercel.app", "http://localhost:3000"],
     })
 );
 
