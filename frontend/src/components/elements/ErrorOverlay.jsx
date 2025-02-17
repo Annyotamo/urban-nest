@@ -17,7 +17,7 @@ const ErrorOverlay = ({ message = "Something went wrong!", action = "Retry", act
     </button >)
 
     let CloseComponent = <></>
-    if (close) CloseComponent = (<button className="absolute top-1 right-1 text-red-500" onClick={closeFunc}><MdOutlineCancel size={20} /></button>)
+    if (close) CloseComponent = (<button className="absolute top-1 right-1 text-red-500 font-bold" onClick={closeFunc}><MdOutlineCancel size={20} /></button>)
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg z-[50] md:p-0 p-8">

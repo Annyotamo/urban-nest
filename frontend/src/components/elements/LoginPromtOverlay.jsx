@@ -22,7 +22,7 @@ const LoginPromtOverlay = ({ message = "add to favourites", close = false, close
     }, []);
 
     let closeComponent = <></>
-    if (close) closeComponent = (<button className="absolute top-1 right-1 text-[#DAB49D]" onClick={closeFunc}><MdOutlineCancel size={20} /></button>)
+    if (close) closeComponent = (<button className="absolute top-1 right-1 text-red-500 font-bold" onClick={closeFunc}><MdOutlineCancel size={30} /></button>)
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg md:p-0 p-8 z-[10000]">

@@ -10,6 +10,7 @@ const Search = () => {
     const handleSearch = useCallback(() => {
         const searchTerm = searchRef.current.value.trim();
         if (searchTerm) dispatch(search(searchTerm));
+        else dispatch(search(""));
     }, [dispatch]);
 
     return (

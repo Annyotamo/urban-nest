@@ -16,13 +16,12 @@ const RentAd = ({ toggle }) => {
 
     useEffect(() => {
         const sequence = async () => {
-            while (true) {
-                await controls.start({
-                    x: '-100%',
-                    transition: { duration: 30, ease: 'linear' },
-                });
-                controls.set({ x: '0%' });
-            }
+            await controls.start({
+                transform: 'translateX(-100%)',
+                transition: { duration: 30, ease: 'linear' },
+            });
+            controls.set({ transform: 'translateX(0%)' });
+            sequence(); // Recursively call the sequence
         };
 
         sequence();
@@ -40,15 +39,9 @@ const RentAd = ({ toggle }) => {
         >
             <style>{`
                 @keyframes gradientBackground {
-                    0% {
-                        background-position: 0% 50%;
-                    }
-                    50% {
-                        background-position: 100% 50%;
-                    }
-                    100% {
-                        background-position: 0% 50%;
-                    }
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
                 }
 
                 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@500&display=swap');
@@ -59,11 +52,9 @@ const RentAd = ({ toggle }) => {
                     <motion.div
                         className="flex gap-4 items-center w-full"
                         animate={controls}
-                        style={{
-                            display: 'flex',
-                        }}
+                        style={{ display: 'flex' }}
                     >
-                        {images.concat(images).map((src, index) => (
+                        {images.map((src, index) => (
                             <img
                                 key={index}
                                 src={src}
@@ -81,4 +72,4 @@ const RentAd = ({ toggle }) => {
     );
 };
 
-export default RentAd;
+export default React.memo(RentAd);
