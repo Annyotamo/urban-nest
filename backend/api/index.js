@@ -19,7 +19,7 @@ const app = express();
 
 await connectDB();
 
-const allowedOrigins = ["http://localhost:3000", "http://localhost:8080"];
+const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https://urbn-nest.vercel.app/"];
 app.use(
     cors({
         credentials: true,
