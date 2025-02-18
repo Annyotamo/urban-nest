@@ -9,9 +9,7 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.post(
     "/login",
-    passport.authenticate("local", {
-        failureMessage: true,
-    }),
+    passport.authenticate("local"),
     (req, res) => {
         console.log("Login successful\n" + req.session);
         return res.json({ message: "Login successful", user: req.session });

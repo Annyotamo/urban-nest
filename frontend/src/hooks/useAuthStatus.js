@@ -6,7 +6,10 @@ const useAuthStatus = () => {
         queryKey: ["auth"],
         queryFn: async () => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            return await axios.get(`${endpoint}/api/auth/status`, { withCredentials: true });
+            const res = await fetch(`${endpoint}/api/auth/status`, { credentials: "include" });
+            const data = await res.json();
+            console.log(data);
+            return data;
         },
     });
 };

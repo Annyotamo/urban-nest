@@ -26,7 +26,7 @@ const User = () => {
 
     if (isLoading) return <LoadingOverlay message="Fetching user details" />
 
-    const { user } = userData?.data || {};
+    const { user } = userData || {};
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-[#FAEDCD]/50 backdrop-blur-lg md:p-0 p-8 z-[10000]">

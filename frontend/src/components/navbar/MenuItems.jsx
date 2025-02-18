@@ -25,9 +25,9 @@ const MenuItems = ({ closeModal }) => {
 
     if (logout) return <ErrorOverlay close={true} closeFunc={() => setLogout(false)} action="Logout" actionFunc={() => { logoutMutate(); setLogout(false); }} message="Are you sure?" />;
 
-    if (isSuccess && authStatus && authStatus.data) {
+    if (isSuccess && authStatus && authStatus) {
         console.log(authStatus)
-        dispatch(setAuth(authStatus.data.isAuthenticated));
+        dispatch(setAuth(authStatus.isAuthenticated));
     }
 
 
@@ -38,8 +38,8 @@ const MenuItems = ({ closeModal }) => {
             <MenuItem label='Your bookings' endpoint="/user/bookings" />
             <MenuItem label='Favourites' endpoint="/user/favourites" />
             <MenuItem label='Register' endpoint="/user/register" styles="border-t" />
-            {(isSuccess && authStatus && authStatus.data && (authStatus.data.isAuthenticated === false || authStatus.data == null)) && <MenuItem label='login' endpoint="/user/login" />}
-            {isSuccess && authStatus && authStatus.data && authStatus.data.isAuthenticated === true && <MenuItem label='logout' styles="text-red-400" onClick={() => setLogout(true)}><FaHome className='mr-2' /></MenuItem>}
+            {(isSuccess && authStatus && authStatus && (authStatus.isAuthenticated === false || authStatus == null)) && <MenuItem label='login' endpoint="/user/login" />}
+            {isSuccess && authStatus && authStatus && authStatus.isAuthenticated === true && <MenuItem label='logout' styles="text-red-400" onClick={() => setLogout(true)}><FaHome className='mr-2' /></MenuItem>}
         </div>
     );
 }

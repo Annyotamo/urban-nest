@@ -26,7 +26,7 @@ const RentPropertyAd = () => {
     return (
         <>
             <RentAd toggle={setToggle} />
-            {toggle && (data.data.isAuthenticated === true ? <RentOptions toggle={setToggle} /> : <LoginPromptOverlay close={true} closeFunc={() => setToggle(false)} />)}
+            {toggle && (data.isAuthenticated === true ? <RentOptions toggle={setToggle} /> : <LoginPromptOverlay close={true} closeFunc={() => setToggle(false)} />)}
             <Toaster position='top-center' />
         </>
     )

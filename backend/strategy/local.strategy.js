@@ -20,6 +20,7 @@ passport.deserializeUser(async (id, done) => {
 export default passport.use(
     new Strategy({ usernameField: "email" }, async (username, password, done) => {
         try {
+            console.log(username + " " + password);
             const user = await User.findOne({ email: username });
             if (!user) throw new Error("User not found");
             const isPasswordValid = await bcrypt.compare(password, user.password);
