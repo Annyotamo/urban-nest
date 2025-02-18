@@ -34,9 +34,11 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
-            secure: false,
+            secure: true,
             httpOnly: true,
             maxAge: 60 * 1000 * 60 * 24,
+            domain: "https://urbn-nest-server.vercel.app",
+            sameSite: "none",
         },
         resave: false,
         saveUninitialized: false,
