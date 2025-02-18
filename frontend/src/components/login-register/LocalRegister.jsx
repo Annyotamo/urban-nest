@@ -24,7 +24,7 @@ const LocalRegister = () => {
         mutationKey: ["Register"],
         mutationFn: async (values) => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            return await axios.post(`${endpoint}api/auth/register`, values)
+            return await axios.post(`${endpoint}/api/auth/register`, values)
         },
         onError: () => setError(true), onSuccess: () => setError(null)
     });

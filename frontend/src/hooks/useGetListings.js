@@ -6,7 +6,7 @@ const useGetListings = () => {
         queryKey: ["listings"],
         queryFn: async () => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            const response = await axios.get(`${endpoint}api/listing/all`);
+            const response = await axios.get(`${endpoint}/api/listing/all`);
             return response.data;
         },
         retry: false,

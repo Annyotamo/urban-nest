@@ -13,7 +13,7 @@ const useCreateBooking = (lid) => {
         mutationFn: async (values) => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
             return await axios.post(
-                `${endpoint}api/booking/create`,
+                `${endpoint}/api/booking/create`,
                 {
                     date: values.date,
                     guests: values.guests,

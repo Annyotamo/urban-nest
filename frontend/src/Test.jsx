@@ -11,7 +11,7 @@ const Test = () => {
         const fetchData = async () => {
             try {
                 const endpoint = import.meta.env.VITE_API_ENDPOINT;
-                const res = await axios.get(`${endpoint}api/test`, { withCredentials: true });
+                const res = await axios.get(`${endpoint}/api/test`, { withCredentials: true });
                 if (res.status == 200) {
                     console.log(res.data);
                     setValue(res.data.message);

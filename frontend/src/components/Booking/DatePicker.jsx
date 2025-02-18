@@ -15,7 +15,7 @@ const DatePicker = ({ setDate, listingId }) => {
         queryKey: ["booking"],
         queryFn: async () => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            const response = await axios.get(`${endpoint}api/booking/all`);
+            const response = await axios.get(`${endpoint}/api/booking/all`);
             return response;
         },
         refetchOnMount: true,
