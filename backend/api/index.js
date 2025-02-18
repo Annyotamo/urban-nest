@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+// import cors from "cors";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
@@ -22,12 +22,24 @@ await connectDB();
 
 const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https://urbn-nest.vercel.app"];
 
-app.use(
-    cors({
-        credentials: true,
-        origin: ["https://urbn-nest.vercel.app", "http://localhost:3000"],
-    })
-);
+// app.options(
+//     "/api/auth/status",
+//     cors({
+//         credentials: true,
+//         origin: "https://urbn-nest.vercel.app", // Your frontend origin
+//         methods: ["GET"], // Allowed methods for this route
+//         allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "Cookie"], // Include Cookie
+//     })
+// );
+
+// app.use(
+//     cors({
+//         credentials: true,
+//         origin: ["https://urbn-nest.vercel.app"],
+//         allowedHeaders: ["Origin", "X-Requested-With, Content-Type, Accept, Authorization, Cookie"],
+//         methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//     })
+// );
 
 // For the parsing data from the req body
 app.use(express.json());
