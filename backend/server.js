@@ -21,11 +21,10 @@ const server = express();
 await connectDB();
 
 // Enabling cross connection establishment
-const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https://urbn-nest.vercel.app/"];
 server.use(
     cors({
         credentials: true,
-        origin: ["https://urbn-nest.vercel.app", "http://localhost:3000"],
+        origin: process.env.FRONTEND_URL,
     })
 );
 
