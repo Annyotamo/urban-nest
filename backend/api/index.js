@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-// import cors from "cors";
+import cors from "cors";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
@@ -21,42 +21,45 @@ const app = express();
 await connectDB();
 
 const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https://urbn-nest.vercel.app"];
+const allowedMethods = ["GET", "POST", "PUT", "DELETE", "PATCH"]; // Define your allowed methods
+const allowedHeaders = ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "Cookie"]; // Include Cookie
 
-// app.options(
-//     "/api/auth/status",
-//     cors({
-//         credentials: true,
-//         origin: "https://urbn-nest.vercel.app", // Your frontend origin
-//         methods: ["GET"], // Allowed methods for this route
-//         allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "Cookie"], // Include Cookie
-//     })
-// );
+const corsOptionsDelegate = (req, callback) => {
+    const origin = req.header("Origin");
 
-app.use(
-    cors({
-        credentials: true,
-        origin: ["https://urbn-nest.vercel.app"],
-        allowedHeaders: ["Origin", "X-Requested-With, Content-Type, Accept, Authorization, Cookie"],
-        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    })
-);
+    if (allowedOrigins.includes(origin) || !origin) {
+        const corsOptions = {
+            credentials: true,
+            origin: origin || "*", // Use origin or * if no origin (for Postman)
+            methods: allowedMethods,
+            allowedHeaders: allowedHeaders,
+        };
+        callback(null, corsOptions);
+    } else {
+        callback(new Error("Not allowed by CORS"));
+    }
+};
 
-// For the parsing data from the req body
+const corsMiddleware = cors(corsOptionsDelegate);
+
+// CORS for OPTIONS requests (MUST BE BEFORE OTHER MIDDLEWARE AND ROUTES)
+app.use(corsMiddleware); // Use the delegate for all requests
+app.options("*", corsMiddleware); // This handles the OPTIONS preflight
+
+// Other middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// parsing all cookies
 app.use(cookieParser());
 
-// session middleware
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
-            secure: true,
+            secure: true, // Absolutely essential for SameSite=None
             httpOnly: true,
             maxAge: 60 * 1000 * 60 * 24,
-            sameSite: "none",
+            sameSite: "none", // Must be "none" for cross-site
+            domain: ".vercel.app", // Important: Dot prefix for subdomains
         },
         resave: false,
         saveUninitialized: false,
@@ -67,11 +70,10 @@ app.use(
     })
 );
 
-// passport js (local)
 app.use(passport.initialize());
-app.use(passport.session()); // attaching to the session
+app.use(passport.session());
 
-// routes
+// Routes (AFTER CORS AND OTHER MIDDLEWARE)
 app.get("/", (req, res) => {
     res.send("Api working!");
 });
