@@ -23,7 +23,12 @@ await connectDB();
 app.use(
     cors({
         credentials: true,
-        origin: process.env.FRONTEND_URL,
+        origin: [
+            "https://urbn-nest-server.vercel.app",
+            "https://urbn-nest-server-c1b11hh64-annyotamos-projects.vercel.app",
+            "https://urbn-nest-server-annyotamos-projects.vercel.app",
+            "https://urbn-nest-server-git-main-annyotamos-projects.vercel.app",
+        ],
     })
 );
 
