@@ -16,12 +16,12 @@ import passport from "passport";
 dotenv.config();
 
 const PORT = process.env.PORT;
-const server = express();
+const app = express();
 
 await connectDB();
 
 // Enabling cross connection establishment
-server.use(
+app.use(
     cors({
         credentials: true,
         origin: process.env.FRONTEND_URL,
@@ -29,11 +29,11 @@ server.use(
 );
 
 // For the parsing data from the req body
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // session middleware
-server.use(
+app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
@@ -51,20 +51,20 @@ server.use(
 );
 
 // passport js (local)
-server.use(passport.initialize());
-server.use(passport.session()); // attaching to the session
+app.use(passport.initialize());
+app.use(passport.session()); // attaching to the session
 
 // routes
-server.get("/", (req, res) => res.json("Yay this is working!"));
-server.use("/api/auth", loginRegisterRouter);
-server.use("/api/listing", listingRouter);
-server.use("/api/booking", bookingRouter);
-server.use("/api/user", userRouter);
-server.use("/api/test", (req, res) => {
+app.get("/", (req, res) => res.json("Yay this is working!"));
+app.use("/api/auth", loginRegisterRouter);
+app.use("/api/listing", listingRouter);
+app.use("/api/booking", bookingRouter);
+app.use("/api/user", userRouter);
+app.use("/api/test", (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
     res.json({ message: "Success!", user: req.user });
 });
 
-server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
+app.listen(PORT, () => console.log(`app running on PORT: ${PORT}`));
 
-export default server;
+export default app;
