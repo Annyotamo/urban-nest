@@ -55,6 +55,7 @@ server.use(passport.initialize());
 server.use(passport.session()); // attaching to the session
 
 // routes
+server.get("/", (req, res) => res.json("Yay this is working!"));
 server.use("/api/auth", loginRegisterRouter);
 server.use("/api/listing", listingRouter);
 server.use("/api/booking", bookingRouter);
@@ -65,3 +66,5 @@ server.use("/api/test", (req, res) => {
 });
 
 server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
+
+export default server;
