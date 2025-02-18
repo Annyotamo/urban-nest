@@ -9,7 +9,7 @@ const useListing = (lid) => {
         queryKey: ["listing", lid],
         queryFn: async () => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            const response = await axios.get(`${endpoint}/api/listing/${lid}`, {
+            const response = await axios.get(`${endpoint}api/listing/${lid}`, {
                 withCredentials: true,
             });
             return response.data;

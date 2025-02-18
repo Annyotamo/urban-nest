@@ -11,7 +11,7 @@ const useFavourite = (initialFavourite, lid) => {
         mutationKey: ["add-favourites"],
         mutationFn: async (values) => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            return await axios.post(`${endpoint}/api/user/favourites`, values, {
+            return await axios.post(`${endpoint}api/user/favourites`, values, {
                 withCredentials: true,
             });
         },

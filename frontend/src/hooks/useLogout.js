@@ -10,7 +10,7 @@ const useLogout = (closeModal) => {
         mutationKey: ["Logout"],
         mutationFn: async () => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            return await axios.post(`${endpoint}/api/auth/logout`, {}, { withCredentials: true });
+            return await axios.post(`${endpoint}api/auth/logout`, {}, { withCredentials: true });
         },
         onSuccess: () => {
             dispatch(setAuth(false));

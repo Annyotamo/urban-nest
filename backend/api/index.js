@@ -32,14 +32,14 @@ const allowedOrigins = ["http://localhost:3000", "http://localhost:8080", "https
 //     })
 // );
 
-// app.use(
-//     cors({
-//         credentials: true,
-//         origin: ["https://urbn-nest.vercel.app"],
-//         allowedHeaders: ["Origin", "X-Requested-With, Content-Type, Accept, Authorization, Cookie"],
-//         methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-//     })
-// );
+app.use(
+    cors({
+        credentials: true,
+        origin: ["https://urbn-nest.vercel.app"],
+        allowedHeaders: ["Origin", "X-Requested-With, Content-Type, Accept, Authorization, Cookie"],
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    })
+);
 
 // For the parsing data from the req body
 app.use(express.json());

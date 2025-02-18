@@ -31,7 +31,7 @@ const RentSubmit = ({ toggle }) => {
     // Uploading all listing data
     async function listingDataUpload() {
         const endpoint = import.meta.env.VITE_API_ENDPOINT;
-        return await axios.post(`${endpoint}/api/listing/create/data`, listingData, { withCredentials: true });
+        return await axios.post(`${endpoint}api/listing/create/data`, listingData, { withCredentials: true });
     }
     // Uploading all images
     async function listingImageUpload(headers) {
@@ -44,7 +44,7 @@ const RentSubmit = ({ toggle }) => {
             formData.append("images", image);
         });
         const endpoint = import.meta.env.VITE_API_ENDPOINT;
-        await axios.post(`${endpoint}/api/listing/create/images`, formData, { headers, withCredentials: true });
+        await axios.post(`${endpoint}api/listing/create/images`, formData, { headers, withCredentials: true });
     }
 
     return (

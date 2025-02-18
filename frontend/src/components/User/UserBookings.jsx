@@ -18,7 +18,7 @@ const UserBookings = () => {
         queryKey: ["User-Booking"],
         queryFn: async () => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            return (await axios.get(`${endpoint}/api/user/bookings`, { withCredentials: true })).data
+            return (await axios.get(`${endpoint}api/user/bookings`, { withCredentials: true })).data
         },
         retry: false
     });

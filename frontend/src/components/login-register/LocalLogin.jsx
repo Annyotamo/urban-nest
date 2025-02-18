@@ -36,7 +36,7 @@ const LocalLogin = () => {
         mutationKey: ["Login"],
         mutationFn: async (values) => {
             const endpoint = import.meta.env.VITE_API_ENDPOINT;
-            return await axios.post(`${endpoint}/api/auth/login`, values, { withCredentials: true })
+            return await axios.post(`${endpoint}api/auth/login`, values, { withCredentials: true })
         },
         onError: () => setLoginError(true),
         onSuccess: () => setLoginError(null)
