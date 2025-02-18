@@ -24,10 +24,10 @@ app.use(
     cors({
         credentials: true,
         origin: [
-            "https://urbn-nest-server.vercel.app",
-            "https://urbn-nest-server-c1b11hh64-annyotamos-projects.vercel.app",
-            "https://urbn-nest-server-annyotamos-projects.vercel.app",
-            "https://urbn-nest-server-git-main-annyotamos-projects.vercel.app",
+            "https://urban-nest-anylvoq1s-annyotamos-projects.vercel.app",
+            "https://https://urban-nest-annyotamos-projects.vercel.app/",
+            "https://urbn-nest.vercel.app",
+            "https://https://urban-nest-git-main-annyotamos-projects.vercel.app/",
         ],
     })
 );
