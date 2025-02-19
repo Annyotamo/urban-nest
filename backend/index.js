@@ -24,9 +24,9 @@ app.use(
     cors({
         credentials: true,
         origin: [
+            "https://urbn-nest.vercel.app",
             "https://urban-nest-anylvoq1s-annyotamos-projects.vercel.app",
             "https://https://urban-nest-annyotamos-projects.vercel.app/",
-            "https://urbn-nest.vercel.app",
             "https://https://urban-nest-git-main-annyotamos-projects.vercel.app/",
         ],
     })
@@ -39,11 +39,11 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
+            domain: "https://urbn-nest.vercel.app",
             secure: true,
             httpOnly: true,
-            maxAge: 60 * 1000 * 60 * 24,
             sameSite: "none",
-            domain: ".vercel.app",
+            maxAge: 60 * 1000 * 60 * 24,
         },
         resave: false,
         saveUninitialized: false,
