@@ -18,46 +18,53 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-await connectDB();
+async function startServer() {
+    try {
+        await connectDB();
 
-app.use(
-    cors({
-        credentials: true,
-    })
-);
+        app.use(
+            cors({
+                credentials: true,
+                origin: process.env.FRONTEND_URL,
+            })
+        );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+        app.use(express.json());
+        app.use(express.urlencoded({ extended: true }));
 
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        cookie: {
-            httpOnly: true,
-            maxAge: 60 * 1000 * 60 * 24,
-        },
-        resave: false,
-        saveUninitialized: false,
-        store: MongoStore.create({
-            client: mongoose.connection.getClient(),
-            dbName: "urban-nest",
-        }),
-    })
-);
+        app.use(
+            session({
+                secret: process.env.SESSION_SECRET,
+                cookie: {
+                    httpOnly: true,
+                    maxAge: 60 * 1000 * 60 * 24,
+                },
+                resave: false,
+                saveUninitialized: false,
+                store: MongoStore.create({
+                    client: mongoose.connection.getClient(),
+                    dbName: "urban-nest",
+                }),
+            })
+        );
 
-app.use(passport.initialize());
-app.use(passport.session());
+        app.use(passport.initialize());
+        app.use(passport.session());
 
-app.get("/", (req, res) => res.send("MERN backend running on Vercel!"));
-app.use("/api/auth", loginRegisterRouter);
-app.use("/api/listing", listingRouter);
-app.use("/api/booking", bookingRouter);
-app.use("/api/user", userRouter);
-app.use("/api/test", (req, res) => {
-    if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
-    res.json({ message: "Success!", user: req.user });
-});
+        app.get("/", (req, res) => res.send("MERN backend running on Vercel!"));
+        app.use("/api/auth", loginRegisterRouter);
+        app.use("/api/listing", listingRouter);
+        app.use("/api/booking", bookingRouter);
+        app.use("/api/user", userRouter);
+        app.use("/api/test", (req, res) => {
+            if (!req.user) return res.status(401).json({ message: "Unauthorized!" });
+            res.json({ message: "Success!", user: req.user });
+        });
 
-app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
+        app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
+    } catch (e) {
+        console.log("Start up failed: \n", e);
+    }
+}
 
-export default app;
+startServer();
